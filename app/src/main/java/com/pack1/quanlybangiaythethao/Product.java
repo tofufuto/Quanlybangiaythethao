@@ -17,12 +17,10 @@ public class Product {
     private String brand;
     private String description;
     private Date dateAdded;
-
-
     private float rating;
     private Bitmap pdImage;
 
-    public Product(String name, int quantity, String size, String color, String gender, float price, String brand, String description, Bitmap pdImage) {
+    public Product(String name, int quantity, String size, String color, String gender, float price, String brand, String description,float rating, Bitmap pdImage) {
         this.name = name;
         this.quantity = quantity;
         this.size = size;
@@ -33,8 +31,9 @@ public class Product {
         this.description = description;
         this.dateAdded = new Date();
         this.pdImage = pdImage;
+        this.rating = rating;
     }
-    public Product(String name, int quantity, String size, String color, String gender, float price, String brand, String description, Bitmap pdImage,int productId) {
+    public Product(String name, int quantity, String size, String color, String gender, float price, String brand, String description,float rating ,Bitmap pdImage,int productId) {
         this.name = name;
         this.quantity = quantity;
         this.size = size;
@@ -46,6 +45,7 @@ public class Product {
         this.dateAdded = new Date();
         this.pdImage = pdImage;
         this.productId = productId;
+        this.rating = rating;
     }
 
     public int getProduct_id() {

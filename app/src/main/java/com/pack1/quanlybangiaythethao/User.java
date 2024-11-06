@@ -10,6 +10,8 @@ public class User {
 
 
     private int userId;
+    private String userName;
+    private String password;
     private String fname;
     private String lname;
     private Date birth;
@@ -20,28 +22,32 @@ public class User {
     private String gmail;
     private Bitmap avatar;
 
-    public User(String fname, String lname, Date birth, String role, String gender,  String numbers, String gmail, Bitmap avatar) {
+    public User( String userName, String password, String fname, String lname, Date birth, String role, String gender, String numbers, String gmail, Bitmap avatar,int userId) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
         this.fname = fname;
         this.lname = lname;
         this.birth = birth;
         this.role = role;
         this.gender = gender;
-        this.dateAdded = new Date();
         this.numbers = numbers;
         this.gmail = gmail;
         this.avatar = avatar;
+        this.dateAdded = new Date();
     }
-    public User(String fname, String lname, Date birth, String role, String gender,  String numbers, String gmail, Bitmap avatar,int userId) {
+    public User( String userName, String password, String fname, String lname, Date birth, String role, String gender, String numbers, String gmail, Bitmap avatar) {
+        this.userName = userName;
+        this.password = password;
         this.fname = fname;
         this.lname = lname;
         this.birth = birth;
         this.role = role;
         this.gender = gender;
-        this.dateAdded = new Date();
         this.numbers = numbers;
         this.gmail = gmail;
         this.avatar = avatar;
-        this.userId= userId;
+        this.dateAdded = new Date();
     }
 
 
@@ -119,5 +125,21 @@ public class User {
 
     public void setAvatar(Bitmap avatar) {
         this.avatar = avatar;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

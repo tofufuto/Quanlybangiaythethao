@@ -18,6 +18,8 @@ public class UserDao {
         //try {
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
+            values.put("username",user.getUserName());
+            values.put("password",user.getPassword());
             values.put("fname", user.getFname());
             values.put("lname", user.getLname());
             values.put("birth", Staticstuffs.ConvertDatetoString(user.getBirth()));
