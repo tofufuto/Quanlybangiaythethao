@@ -30,7 +30,7 @@ public class Sign_in extends AppCompatActivity {
             return insets;
         });
 
-        //DatabaseAddingTester();
+        DatabaseAddingTester();
     }
 
     private void DatabaseAddingTester() {
@@ -39,28 +39,28 @@ public class Sign_in extends AppCompatActivity {
         db = dbHelper.getWritableDatabase();
 
 
-        User user1 = new User("huy2004","123456789","Huy","Xuan",Staticstuffs.ConvertStringtoDate("07-08-2004"),"admin","nam","1111111111","lmao420@gmail.com",null);
-        UserDao userDao1 = new UserDao(this.getApplicationContext());
-        userDao1.addUser(user1);
-
-        Product product1 = new Product("giày nike",30,"38.5","yellow","nam",1000000,"nike","giày xịn xò blah blah blah",4.3f,null);
-        ProductDao productDao1 = new ProductDao(this);
-        productDao1.addProduct(product1);
-
-        ProducImage producImage1 = new ProducImage(null,1);
-        ProductImageDao productImageDao = new ProductImageDao(this);
-        productImageDao.addProductImage(producImage1);
-
-        UserOrder userOrder1 = new UserOrder(2,2000000,"đang xử lý",1,1);
-        UserOrderDao userOrderDao1 = new UserOrderDao(this);
-        userOrderDao1.addUserOrder(userOrder1);
-
-        Review review1 = new Review("Giày xịn vkl mang sướng",5,1,1);
-        ReviewDao reviewDao1 = new ReviewDao(this);
-        reviewDao1.addReview(review1);
-
-        ShoppingCart shoppingCart1 = new ShoppingCart(1,1);
-        ShoppingCartDao shoppingCartDao1 = new ShoppingCartDao(this);
-        shoppingCartDao1.addShoppingCart(shoppingCart1);
+//        User user1 = new User("huy2004","123456789","Huy","Xuan",Staticstuffs.ConvertStringtoDate("07-08-2004"),"admin","nam","1111111111","lmao420@gmail.com",null);
+//        UserDao userDao1 = new UserDao(this.getApplicationContext());
+//        userDao1.addUser(user1);
+//
+//        Product product1 = new Product("giày nike",30,"38.5","yellow","nam",1000000,"nike","giày xịn xò blah blah blah",4.3f,null);
+//        ProductDao productDao1 = new ProductDao(this);
+//        productDao1.addProduct(product1);
+//
+//        ProducImage producImage1 = new ProducImage(null,1);
+//        ProductImageDao productImageDao = new ProductImageDao(this);
+//        productImageDao.addProductImage(producImage1);
+//
+//        UserOrder userOrder1 = new UserOrder(2,2000000,"đang xử lý",1,1);
+//        UserOrderDao userOrderDao1 = new UserOrderDao(this);
+//        userOrderDao1.addUserOrder(userOrder1);
+//
+//        Review review1 = new Review("Giày xịn vkl mang sướng",5,1,1);
+//        ReviewDao reviewDao1 = new ReviewDao(this);
+//        reviewDao1.addReview(review1);
+//
+//        ShoppingCart shoppingCart1 = new ShoppingCart(1,1);
+//        ShoppingCartDao shoppingCartDao1 = new ShoppingCartDao(this);
+//        shoppingCartDao1.addShoppingCart(shoppingCart1);
     }
 }

@@ -8,7 +8,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Database.db";
     private static final int DATABASE_VERSION = 1;
     private  static final  String USER_TABLE = "CREATE TABLE User(user_id integer primary key autoincrement," +
-            "username text,"+
+            "username text UNIQUE,"+
             "password text,"+
             "fname text," +
             "lname text," +
@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ");";
     private static final String  PRODUCT_TABLE = "CREATE TABLE Product (" +
             "product_id INTEGER primary key autoincrement ," +
-            "name TEXT," +
+            "name TEXT UNIQUE," +
             "quantity INTEGER," +
             "size TEXT," +
             "color TEXT," +

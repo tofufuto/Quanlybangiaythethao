@@ -18,6 +18,7 @@ public class ShoppingCartDao {
         values.put("user_id", shoppingCart.getUserId());
         values.put("product_id", shoppingCart.getProductId());
         long rs = db.insert("Shopping_cart",null,values);
+        db.close();
         return rs;
     }
 }

@@ -21,6 +21,7 @@ public class ReviewDao {
         values.put("user_id",review.getUserId());
         values.put("product_id",review.getProductId());
         long rs = db.insert("Review",null,values);
+        db.close();
         return rs;
     }
 //    public Review findReview(int userId)
