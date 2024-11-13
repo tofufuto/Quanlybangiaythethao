@@ -9,14 +9,16 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        >
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             tools:srcCompat="@drawable/ic_launcher_background" />
 
         <LinearLayout
@@ -30,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="example"
                 android:textColor="@color/darkgray"
-                android:textSize="17dp" />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/pprice"
@@ -52,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:text="example"
                 android:textColor="@color/darkgray"
-                android:textSize="15sp" />
+                android:textSize="10dp" />
 
             <ImageView
                 android:id="@+id/imageView3"

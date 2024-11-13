@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AdministratorProductSelect"
-    android:background="@color/white">
+    android:background="@color/slightlydarkerwhite">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,9 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
-        android:verticalSpacing="10dp"
+        android:verticalSpacing="60dp"
         android:horizontalSpacing="10dp"
         android:padding="10dp"
         android:gravity="center"
+
         />
 </LinearLayout>
