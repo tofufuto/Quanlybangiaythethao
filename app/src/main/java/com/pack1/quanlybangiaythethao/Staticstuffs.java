@@ -1,7 +1,9 @@
 package com.pack1.quanlybangiaythethao;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -40,6 +42,8 @@ public class Staticstuffs {
         return stream.toByteArray();
     }
     public static Bitmap byteArrayToBitmap(byte[] byteArray) {
+        if(byteArray == null)
+            return null;
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
     public static Bitmap convertImageUrlToBitmap(String imageUrl) {
@@ -53,6 +57,16 @@ public class Staticstuffs {
         } catch (Exception e) {
             e.printStackTrace();
             return null; // Trả về null nếu có lỗi
+        }
+    }
+
+    public static Bitmap uriToBitmap(Context context, Uri imageUri) {
+        try {
+            InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+            return BitmapFactory.decodeStream(inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
