@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.widget.GridView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +28,16 @@ public class AdministratorProductSelect extends AppCompatActivity {
     GridView productDisplay;
     ProductGridViewAdapter adapter;
     ArrayList<Product> productList;
+    private final ActivityResultLauncher<Intent> addProductLauncher = registerForActivityResult(// gpt :))
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                // Kiểm tra kết quả trả về từ AddProductActivity
+                if (result.getResultCode() == RESULT_OK) {
+                    // Reload lại dữ liệu từ SQLite
+                    loadProductFromDatabase();
+                }
+            }
+    );
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,28 +57,31 @@ public class AdministratorProductSelect extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        loadProductFromDatabase();
 
+
+    }
+
+    private void loadProductFromDatabase() {
         ProductDao productDao = new ProductDao(this);
         productList = productDao.getAllProduct();
 
         adapter = new ProductGridViewAdapter(this,productList, this.getLayoutInflater());
         productDisplay.setAdapter(adapter);
-
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.administrator_product_select_action_bar,menu);
         return true;
     }
 
-    @Override// cái nút back đi ra acti khác
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.btnadd) {
             Intent intent = new Intent(this, AddProductActivity.class);
-            startActivity(intent);
+            addProductLauncher.launch(intent);
         }
         return false;
     }

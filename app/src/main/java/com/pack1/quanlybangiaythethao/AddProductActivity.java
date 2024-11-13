@@ -16,6 +16,9 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +36,7 @@ public class AddProductActivity extends AppCompatActivity {
     ImageView imageView;
     Bitmap imageBitmap;
     byte[] imageByteArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,8 @@ public class AddProductActivity extends AppCompatActivity {
     Toolbar toolbar = findViewById(R.id.toolbaraddproduct);
     setSupportActionBar(toolbar);
 
+
+
         createImageSelection();
 
 
@@ -68,6 +74,14 @@ public class AddProductActivity extends AppCompatActivity {
         buttonToAddProduct();
 
         fixNestedScrollViewofDescription();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(RESULT_OK);
+        finish();
     }
 
     private void buttonToAddProduct() {
@@ -89,6 +103,7 @@ public class AddProductActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Lỗi không thể thêm sản phẩm \n (!) Xem lại tên sản phẩm", Toast.LENGTH_SHORT).show();
                 else
                     clearAllInputField();
+                setResult(RESULT_OK);
             }catch (Exception e)
             {
                 Toast.makeText(getApplicationContext(), "Lỗi không thể thêm sản phẩm \n (!) Kiểm tra lại thông tin điền", Toast.LENGTH_SHORT).show();
@@ -158,8 +173,7 @@ public class AddProductActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.btnback) {
-            Intent intent = new Intent(this, AdministratorProductSelect.class);
-            startActivity(intent);
+            onBackPressed();
         }
         return false;
     }
