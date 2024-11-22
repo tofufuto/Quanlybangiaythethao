@@ -1,6 +1,8 @@
 package com.pack1.quanlybangiaythethao;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -28,6 +32,8 @@ public class AdministratorProductSelect extends AppCompatActivity {
     GridView productDisplay;
     ProductGridViewAdapter adapter;
     ArrayList<Product> productList;
+    //private final int GALLERY_REQUEST_CODE = 999;
+    //mỗi lần nhập xong sản phẩm là form  AddProduct sẽ trả ra result OK và load lại sản phâ từ database
     private final ActivityResultLauncher<Intent> addProductLauncher = registerForActivityResult(// gpt :))
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -48,6 +54,9 @@ public class AdministratorProductSelect extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
 
         dbHelper = new DatabaseHelper(this);
         database = dbHelper.getWritableDatabase();

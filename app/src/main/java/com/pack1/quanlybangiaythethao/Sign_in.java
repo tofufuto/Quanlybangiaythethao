@@ -34,7 +34,7 @@ public class Sign_in extends AppCompatActivity {
     }
 
     private void DatabaseAddingTester() {
-        //this.deleteDatabase("Database.db");// xóa luôn cái database
+        this.deleteDatabase("Database.db");// xóa luôn cái database
         dbHelper = new DatabaseHelper(this);
         db = dbHelper.getWritableDatabase();
 
@@ -47,7 +47,7 @@ public class Sign_in extends AppCompatActivity {
 //        ProductDao productDao1 = new ProductDao(this);
 //        productDao1.addProduct(product1);
 //
-//        ProducImage producImage1 = new ProducImage(null,1);
+//        ProductImage producImage1 = new ProductImage(null,1);
 //        ProductImageDao productImageDao = new ProductImageDao(this);
 //        productImageDao.addProductImage(producImage1);
 //

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".AddProductActivity"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/slightlydarkerwhite">
     
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -22,13 +22,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/slightlydarkerwhite"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,14 +89,16 @@
                         android:minLines="6"
                         android:overScrollMode="always"
                         android:scrollbars="vertical"
-                        android:textColor="@color/darkgray" />
+                        android:textColor="@color/darkgray"
+                        android:nestedScrollingEnabled="true"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:orientation="horizontal">
 
@@ -143,16 +145,16 @@
                         android:id="@+id/rdmale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="Nam"
-                        android:textColor="@color/darkgray"
-                        android:checked="true"/>
+                        android:textColor="@color/darkgray" />
 
                     <RadioButton
                         android:id="@+id/rdfemale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nữ"
-                        android:textColor="@color/darkgray"/>
+                        android:textColor="@color/darkgray" />
                 </RadioGroup>
 
             </LinearLayout>
@@ -276,19 +278,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/lightblue"
                     android:text="Thêm ảnh"
+                    android:textColor="@color/darkgray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+
+                <GridView
+                    android:id="@+id/productImagesDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:gravity="center"
+                    android:horizontalSpacing="10dp"
+                    android:nestedScrollingEnabled="true"
+                    android:numColumns="3"
+                    android:padding="10dp"
+                    android:verticalSpacing="10dp" />
+
+                <Button
+                    android:layout_gravity="end"
+                    android:id="@+id/btnAddMutiImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thêm ảnh cho sản phẩm"
                     android:textColor="@color/darkgray"
-                    android:backgroundTint="@color/lightblue"/>
+                    android:backgroundTint="@color/lightblue"
+                    />
+
             </LinearLayout>
 
             <Button
                 android:id="@+id/btnAddProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thêm sản phẩm"
-                android:textColor="@color/darkgray"
                 android:backgroundTint="@color/lightblue"
-                />
+                android:text="Thêm sản phẩm"
+                android:textColor="@color/darkgray" />
 
 
         </LinearLayout>

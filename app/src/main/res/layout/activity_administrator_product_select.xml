@@ -17,15 +17,16 @@
         app:titleMargin="10dp"
 
         />
+
     <GridView
         android:id="@+id/productDisplay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"
-        android:verticalSpacing="60dp"
-        android:horizontalSpacing="10dp"
-        android:padding="10dp"
         android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:padding="10dp"
+        android:verticalSpacing="60dp"
 
         />
 </LinearLayout>
