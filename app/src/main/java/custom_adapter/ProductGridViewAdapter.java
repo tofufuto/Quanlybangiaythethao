@@ -59,7 +59,7 @@ public class ProductGridViewAdapter extends BaseAdapter {
         textViewRating.setText(""+productList.get(i).getRating());
 
         TextView textViewPrice = view.findViewById(R.id.pprice);
-        textViewPrice.setText(""+productList.get(i).getPrice());
+        textViewPrice.setText((""+(int) productList.get(i).getPrice())+"VNĐ");
         return view;
     }
 }

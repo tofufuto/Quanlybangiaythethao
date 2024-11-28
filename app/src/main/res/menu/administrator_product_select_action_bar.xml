@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_search_product_select_view"
+        android:title="search"
+        android:icon="@drawable/baseline_search_24"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
         android:title="backbutton"
         android:id="@+id/btnadd"
         android:icon="@drawable/baseline_add_24"

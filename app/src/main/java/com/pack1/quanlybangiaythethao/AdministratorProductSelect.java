@@ -9,11 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -78,10 +81,38 @@ public class AdministratorProductSelect extends AppCompatActivity {
         adapter = new ProductGridViewAdapter(this,productList, this.getLayoutInflater());
         productDisplay.setAdapter(adapter);
     }
+    private void loadProductFromDatabaseWithKW(String kw)
+    {
+        ProductDao productDao = new ProductDao(this);
+        productList = productDao.getProductKw(kw);
+
+        adapter = new ProductGridViewAdapter(this,productList,this.getLayoutInflater());
+        productDisplay.setAdapter(adapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.administrator_product_select_action_bar,menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search_product_select_view);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                loadProductFromDatabaseWithKW(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty())
+                    loadProductFromDatabase();
+                return false;
+            }
+        });
+
         return true;
     }
 

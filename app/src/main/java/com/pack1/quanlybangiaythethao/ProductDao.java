@@ -63,4 +63,33 @@ public class ProductDao {
         dbHelper.close();
         return productList;
     }
+
+    public ArrayList<Product> getProductKw(String kw)
+    {
+        String[] stringArgs = new String[]{"%"+kw+"%"};
+        ArrayList<Product> resultList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("select * from Product where name LIKE ?",stringArgs);
+        if (cursor != null && cursor.moveToNext())
+            do {
+                int productId = cursor.getInt(cursor.getColumnIndexOrThrow("product_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                int quantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));
+                String size = cursor.getString(cursor.getColumnIndexOrThrow("size"));
+                String color = cursor.getString(cursor.getColumnIndexOrThrow("color"));
+                String gender = cursor.getString(cursor.getColumnIndexOrThrow("gender"));
+                float price = cursor.getFloat(cursor.getColumnIndexOrThrow("price"));
+                String brand = cursor.getString(cursor.getColumnIndexOrThrow("brand"));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+                float rating = cursor.getFloat(cursor.getColumnIndexOrThrow("rating"));
+                Bitmap pdImage = Staticstuffs.byteArrayToBitmap(cursor.getBlob(cursor.getColumnIndexOrThrow("pd_image")));
+
+                Product product = new Product(name, quantity, size, color, gender, price, brand, description, rating, pdImage, productId);
+                resultList.add(product);
+            } while (cursor.moveToNext());
+        cursor.close();
+        dbHelper.close();
+        return resultList;
+    }
 }
