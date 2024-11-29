@@ -1,5 +1,6 @@
 package com.pack1.quanlybangiaythethao;
 
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,9 +9,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
-
 import android.widget.Toast;
-
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -18,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -37,9 +41,11 @@ public class AdministratorProductSelect extends AppCompatActivity {
     ArrayList<Product> productList;
     //private final int GALLERY_REQUEST_CODE = 999;
     //mỗi lần nhập xong sản phẩm là form  AddProduct sẽ trả ra result OK và load lại sản phâ từ database
-    private final ActivityResultLauncher<Intent> addProductLauncher = registerForActivityResult(// gpt :))
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
+
+
+    private final ActivityResultLauncher<Intent> addProductLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+
                 // Kiểm tra kết quả trả về từ AddProductActivity
                 if (result.getResultCode() == RESULT_OK) {
                     // Reload lại dữ liệu từ SQLite
@@ -47,6 +53,16 @@ public class AdministratorProductSelect extends AppCompatActivity {
                 }
             }
     );
+
+    private final ActivityResultLauncher<Intent> productDetailLaucher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result ->{
+                if (result.getResultCode() == RESULT_OK) {
+                    // Reload lại dữ liệu từ SQLite
+                    loadProductFromDatabase();
+                }
+            }
+    );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +87,17 @@ public class AdministratorProductSelect extends AppCompatActivity {
 
         loadProductFromDatabase();
 
+        productDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {// click vào 1 giày để sửa thông tin
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(AdministratorProductSelect.this, ProductDetailAdmin.class);
+                TextView tv = view.findViewById(R.id.pname);
+                String name = tv.getText().toString();
+                intent.putExtra("clickedProductName",name);
+                productDetailLaucher.launch(intent);
+            }
+        });
+
 
     }
 
@@ -84,7 +111,9 @@ public class AdministratorProductSelect extends AppCompatActivity {
     private void loadProductFromDatabaseWithKW(String kw)
     {
         ProductDao productDao = new ProductDao(this);
-        productList = productDao.getProductKw(kw);
+
+        productList = productDao.getProductsKw(kw);
+
 
         adapter = new ProductGridViewAdapter(this,productList,this.getLayoutInflater());
         productDisplay.setAdapter(adapter);

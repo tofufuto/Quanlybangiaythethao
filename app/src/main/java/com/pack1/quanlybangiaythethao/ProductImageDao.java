@@ -2,7 +2,11 @@ package com.pack1.quanlybangiaythethao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+
+import java.util.ArrayList;
 
 public class ProductImageDao {
     DatabaseHelper dbHelper ;
@@ -20,5 +24,22 @@ public class ProductImageDao {
         long rs = db.insert("Product_images",null,values);
         db.close();
         return rs;// -1 nếu ko thêm dc
+    }
+    public ArrayList<ProducImage> getAllProductImagesFromID(int id)
+    {
+        ArrayList<ProducImage> producImagesArray = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from Product_images where product_id = ?",new String[]{""+id});
+        if(cursor.moveToNext())
+            do{
+                Bitmap Image = Staticstuffs.byteArrayToBitmap(cursor.getBlob(cursor.getColumnIndexOrThrow("Image")));
+                int pID = cursor.getInt(cursor.getColumnIndexOrThrow("product_id"));
+                int imgId = cursor.getInt(cursor.getColumnIndexOrThrow("img_id"));
+                ProducImage producImage = new ProducImage(Image,pID,imgId);
+                producImagesArray.add(producImage);
+            }while(cursor.moveToNext());
+        cursor.close();
+        db.close();
+        return producImagesArray;
     }
 }

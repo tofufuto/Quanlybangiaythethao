@@ -45,7 +45,7 @@ public class AddProductActivity extends AppCompatActivity {
     Button btnAddImageMain,btnAddProduct;
     ImageView imageView;
     Bitmap imageBitmap;
-    byte[] imageByteArray;
+
     ArrayList<Bitmap> productImagesBitmap = new ArrayList<>();
     GridView gridView;
     Button btnAddMutipleImages;
@@ -60,25 +60,25 @@ public class AddProductActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-    gridViewImageAdapter = new GridViewImageAdapter(this,productImagesBitmap,this.getLayoutInflater());
-    dbHelper = new DatabaseHelper(this);
-    database = dbHelper.getWritableDatabase();
-    priceInput = findViewById(R.id.priceip);
-    nameInput = findViewById(R.id.nameip);
-    quantityInput = findViewById(R.id.quantityip);
-    sizeInput = findViewById(R.id.sizeip);
-    colorInput = findViewById(R.id.colorip);
-    brandInput = findViewById(R.id.brandip);
-    descriptionInput = findViewById(R.id.descrip);
-    rdMale = findViewById(R.id.rdmale);
-    rdFemale = findViewById(R.id.rdfemale);
-    btnAddImageMain = findViewById(R.id.btnAddImageMain);
-    btnAddProduct = findViewById(R.id.btnAddProduct);
-    imageView = findViewById(R.id.imageViewMain);
-    gridView = findViewById(R.id.productImagesDisplay);
-    btnAddMutipleImages = findViewById(R.id.btnAddMutiImage);
-    Toolbar toolbar = findViewById(R.id.toolbaraddproduct);
-    setSupportActionBar(toolbar);
+        gridViewImageAdapter = new GridViewImageAdapter(this,productImagesBitmap,this.getLayoutInflater());
+        dbHelper = new DatabaseHelper(this);
+        database = dbHelper.getWritableDatabase();
+        priceInput = findViewById(R.id.priceip);
+        nameInput = findViewById(R.id.nameip);
+        quantityInput = findViewById(R.id.quantityip);
+        sizeInput = findViewById(R.id.sizeip);
+        colorInput = findViewById(R.id.colorip);
+        brandInput = findViewById(R.id.brandip);
+        descriptionInput = findViewById(R.id.descrip);
+        rdMale = findViewById(R.id.rdmale);
+        rdFemale = findViewById(R.id.rdfemale);
+        btnAddImageMain = findViewById(R.id.btnAddImageMain);
+        btnAddProduct = findViewById(R.id.btnAddProduct);
+        imageView = findViewById(R.id.imageViewMain);
+        gridView = findViewById(R.id.productImagesDisplay);
+        btnAddMutipleImages = findViewById(R.id.btnAddMutiImage);
+        Toolbar toolbar = findViewById(R.id.toolbaraddproduct);
+        setSupportActionBar(toolbar);
 
         createImageSelection();
 
@@ -106,7 +106,9 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     private int AddProductToDatabase(Context context) {
-        String gender = rdMale.isChecked() ? "Nam" : "Nữ";
+
+        String gender = rdMale.isChecked() ? Staticstuffs.MALE : Staticstuffs.FEMALE;
+
         int rs;
         try {
             Product product = new Product(nameInput.getText().toString().trim(),

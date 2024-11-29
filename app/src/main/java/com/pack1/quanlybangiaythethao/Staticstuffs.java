@@ -10,9 +10,12 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Staticstuffs {
+    public static final String MALE = "Nam";
+    public static final String FEMALE = "Nam";
     public static String DATE_FORMATTER = "dd-MM-yyyy";
     public static String ConvertDatetoString(Date date)
     {
@@ -68,5 +71,14 @@ public class Staticstuffs {
             e.printStackTrace();
             return null;
         }
+    }
+    public static ArrayList<Bitmap> productImageListToBitmapList(ArrayList<ProducImage> pArr)
+    {
+        ArrayList<Bitmap> bitmaps = new ArrayList<>();
+        for (int i =0;i< pArr.size();i++)
+        {
+            bitmaps.add(pArr.get(i).getImage());
+        }
+        return  bitmaps;
     }
 }
