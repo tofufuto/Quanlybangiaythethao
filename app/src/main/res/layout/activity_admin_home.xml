@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminHome"
+    android:orientation="vertical"
+    android:background="@color/slightlydarkerwhite"
+    >
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminActionBar"
+        android:background="@color/lightblue"
+        app:title="Admin"
+        app:titleMargin="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginVertical="50dp"
+
+        >
+
+
+        <Button
+            android:id="@+id/checksanpham"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+
+            android:text="Check sản phẩm"
+            android:background="@drawable/baseline_search_24"
+            android:textColor="@color/darkgray"
+            />
+        <Button
+            android:id="@+id/checknhanvien"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+
+            android:background="@drawable/baseline_face_24"
+            android:text="Quản lý nhân viên"
+            android:textColor="@color/darkgray"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginVertical="50dp"
+        >
+
+
+        <Button
+            android:id="@+id/statsbtn"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:text="Thống kê"
+            android:background="@drawable/baseline_stacked_bar_chart_24"
+            android:textColor="@color/darkgray"
+            />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
