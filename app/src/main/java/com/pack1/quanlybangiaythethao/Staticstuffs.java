@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Staticstuffs {
+    public static final String NGUOIDUNG = "CUSTOMER";
+    public static final String NHANVIEN = "EMPLOYEE";
+    public static final String QUANTRI = "ADMIN";
     public static final String MALE = "Nam";
-    public static final String FEMALE = "Nam";
+    public static final String FEMALE = "Nữ";
     public static String DATE_FORMATTER = "dd-MM-yyyy";
     public static String ConvertDatetoString(Date date)
     {

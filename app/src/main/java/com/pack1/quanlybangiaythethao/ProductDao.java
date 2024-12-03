@@ -128,4 +128,42 @@ public class ProductDao {
         dbHelper.close();
         return resultList.get(0);
     }
+    public int getProductIdByName(String pName)
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select product_id from Product where name = ?",new String[]{pName});
+        int id = -1;
+        if(cursor.moveToNext())
+            id = cursor.getInt(cursor.getColumnIndexOrThrow("product_id"));
+        cursor.close();
+        db.close();
+        return id;
+    }
+    public int updateProductyId(int pID,Product product)
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name",product.getName());
+        values.put("quantity",product.getQuantity());
+        values.put("size",product.getSize());
+        values.put("color",product.getColor());
+        values.put("gender",product.getGender());
+        values.put("price",product.getPrice());
+        values.put("brand",product.getBrand());
+        values.put("description",product.getDescription());
+        //values.put("rating",product.getRating());
+        values.put("pd_image",Staticstuffs.bitmapToByteArray( product.getPdImage()));
+        String whereClause = "product_id = ?";
+        String[] whereArgs = {"" + pID};
+        int rowAffected = db.update("Product",values,whereClause,whereArgs);
+        return rowAffected;
+    }
+    public int deleteProductFromDatabaseByID(int pID)
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String whereClause = "product_id = ?";
+        String[] whereArgs = {""+pID};
+        int rowDeleted = db.delete("Product",whereClause,whereArgs);
+        return rowDeleted;
+    }
 }

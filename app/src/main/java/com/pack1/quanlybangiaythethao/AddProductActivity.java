@@ -37,7 +37,7 @@ import custom_adapter.GridViewImageAdapter;
 public class AddProductActivity extends AppCompatActivity {
     DatabaseHelper dbHelper;
     SQLiteDatabase database;
-    private final int PRODUCT_IMAGE_LIMIT = 10;
+    private final int PRODUCT_IMAGE_LIMIT = 5;
     private final int PICK_IMAGE_REQUEST = 1;
     private final int PICK_MUTIPLE_IMAGES_REQUEST = 2;
     EditText nameInput,quantityInput,sizeInput,colorInput,brandInput,descriptionInput,priceInput;

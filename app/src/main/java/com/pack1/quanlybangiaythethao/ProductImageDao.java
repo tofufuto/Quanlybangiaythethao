@@ -42,4 +42,13 @@ public class ProductImageDao {
         db.close();
         return producImagesArray;
     }
+
+    public int deleteAllProductImageByProductId(int id)
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String whereClause = "product_id = ?";
+        String[] whereArgs = {""+id};
+        int rowDeleted = db.delete("Product_images" ,whereClause,whereArgs);
+        return rowDeleted;
+    }
 }

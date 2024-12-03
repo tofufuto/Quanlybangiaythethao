@@ -98,6 +98,17 @@ public class AdministratorProductSelect extends AppCompatActivity {
             }
         });
 
+//        User user = new User("skibidi","123","Ski","bidi",Staticstuffs.ConvertStringtoDate("07-08-2004"),Staticstuffs.NGUOIDUNG,Staticstuffs.MALE,"1111111113","skibididomdom@gmail.com",null);
+//       User user2 = new User("Shikanoko","123","Shika","noko",Staticstuffs.ConvertStringtoDate("07-08-2004"),Staticstuffs.NGUOIDUNG,Staticstuffs.FEMALE,"1111111112","lmaoxd@gmail.com",null);
+//        UserDao userDao = new UserDao(this);
+//        userDao.addUser(user);
+//        userDao.addUser(user2);
+//        Review review = new Review("kinda mid but ok",2,1,3);
+//        Review review2 = new Review("Giày dỏm 0/10 kys!",1f,1,2);
+//        ReviewDao reviewDao = new ReviewDao(this);
+//        reviewDao.addReview(review);
+//        reviewDao.addReview(review2);
+
 
     }
 

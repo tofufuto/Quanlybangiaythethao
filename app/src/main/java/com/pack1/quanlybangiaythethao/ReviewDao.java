@@ -2,7 +2,11 @@ package com.pack1.quanlybangiaythethao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ReviewDao {
     DatabaseHelper dbhelper;
@@ -24,8 +28,25 @@ public class ReviewDao {
         db.close();
         return rs;
     }
-//    public Review findReview(int userId)
-//    {
-//
-//    }
+
+    public ArrayList<Review> getAllReviewByProuctId(int productId)
+    {   ArrayList<Review> reviews = new ArrayList<>();
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from Review where product_id = ?", new String[]{""+productId});
+        if(cursor.moveToNext())
+        {
+            do {
+                 int reviewId = cursor.getInt(cursor.getColumnIndexOrThrow("review_id"));
+                 String rev = cursor.getString(cursor.getColumnIndexOrThrow("review_text"));
+                 float rating = cursor.getFloat(cursor.getColumnIndexOrThrow("rating"));
+                 int userId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
+                 int pId = cursor.getInt(cursor.getColumnIndexOrThrow("product_id"));
+                 Review review = new Review(rev,rating,pId,userId,reviewId);
+                 reviews.add(review);
+            }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return reviews;
+    }
 }

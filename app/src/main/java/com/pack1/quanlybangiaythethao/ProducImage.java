@@ -44,4 +44,6 @@ public class ProducImage {
     public void setProduct_id(int productId) {
         this.productId = productId;
     }
+
+
 }
