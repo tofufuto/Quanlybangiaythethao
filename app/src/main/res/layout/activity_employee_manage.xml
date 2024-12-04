@@ -5,28 +5,24 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="com.pack1.admin.EmployeeManageActivity"
     android:orientation="vertical"
-    tools:context="com.pack1.admin.AdministratorProductSelect"
     android:background="@color/slightlydarkerwhite">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbarselectproduct"
+        android:id="@+id/employeelisttoolbar"
         android:background="@color/lightblue"
-        app:title="Xem sản phẩm"
+        app:title="List nhân viên"
         app:titleMargin="10dp"
-
         />
 
-    <GridView
-        android:id="@+id/productDisplay"
+    <ListView
+        android:id="@+id/listEmployeesDisplay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:horizontalSpacing="10dp"
-        android:numColumns="2"
         android:padding="10dp"
-        android:verticalSpacing="60dp"
-
         />
+
 </LinearLayout>

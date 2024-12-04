@@ -1,4 +1,4 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.admin;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +27,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.pack1.quanlybangiaythethao.ProducImage;
+import com.pack1.quanlybangiaythethao.Product;
+import com.pack1.quanlybangiaythethao.ProductDao;
+import com.pack1.quanlybangiaythethao.ProductImageDao;
+import com.pack1.quanlybangiaythethao.R;
+import com.pack1.quanlybangiaythethao.ReviewDao;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
 
 import java.util.ArrayList;
 

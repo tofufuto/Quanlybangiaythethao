@@ -16,22 +16,22 @@
         android:theme="@style/Theme.Quanlybangiaythethao"
         tools:targetApi="31">
         <activity
-            android:name=".AdministratorProductSelect"
+            android:name="com.pack1.admin.EmployeeManageActivity"
             android:exported="false" />
         <activity
-            android:name=".ProductDetailAdmin"
+            android:name="com.pack1.admin.AdministratorProductSelect"
             android:exported="false" />
         <activity
-            android:name=".AddProductActivity"
+            android:name="com.pack1.admin.ProductDetailAdmin"
+            android:exported="false" />
+        <activity
+            android:name="com.pack1.admin.AddProductActivity"
             android:exported="false" />
         <activity
             android:name=".Sign_in"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AdminHome"
+            android:name="com.pack1.admin.AdminHome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

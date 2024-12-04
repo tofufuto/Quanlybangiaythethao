@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 //Dao data access object
@@ -77,5 +78,30 @@ public class UserDao {
         db.close();
         cursor.close();
         return null;
+    }
+    public ArrayList<User> getAllEmployees() {
+        ArrayList<User> empList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from User", null);
+        if (cursor.moveToNext()) {
+            do {
+                int user_id = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
+                String username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+                String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+                String fname = cursor.getString(cursor.getColumnIndexOrThrow("fname"));
+                String lname = cursor.getString(cursor.getColumnIndexOrThrow("lname"));
+                Date birth = Staticstuffs.ConvertStringtoDate(cursor.getString(cursor.getColumnIndexOrThrow("birth")));
+                String role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
+                String gender = cursor.getString(cursor.getColumnIndexOrThrow("gender"));
+                String gmail = cursor.getString(cursor.getColumnIndexOrThrow("gmail"));
+                String numbers = cursor.getString(cursor.getColumnIndexOrThrow("numbers"));
+                Bitmap avatar = Staticstuffs.byteArrayToBitmap(cursor.getBlob(cursor.getColumnIndexOrThrow("avatar")));
+                User employee = new User(username, password, fname, lname, birth, role, gender, numbers, gmail, avatar, user_id);
+                empList.add(employee);
+            } while (cursor.moveToNext()) ;
+        }
+        cursor.close();
+        db.close();
+        return empList;
     }
 }

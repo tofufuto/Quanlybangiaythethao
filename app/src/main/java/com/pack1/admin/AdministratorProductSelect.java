@@ -1,18 +1,14 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.admin;
 
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
-import android.widget.Toast;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -22,11 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.pack1.quanlybangiaythethao.DatabaseHelper;
+import com.pack1.quanlybangiaythethao.Product;
+import com.pack1.quanlybangiaythethao.ProductDao;
+import com.pack1.quanlybangiaythethao.R;
 
 import java.util.ArrayList;
 
@@ -98,16 +97,6 @@ public class AdministratorProductSelect extends AppCompatActivity {
             }
         });
 
-//        User user = new User("skibidi","123","Ski","bidi",Staticstuffs.ConvertStringtoDate("07-08-2004"),Staticstuffs.NGUOIDUNG,Staticstuffs.MALE,"1111111113","skibididomdom@gmail.com",null);
-//       User user2 = new User("Shikanoko","123","Shika","noko",Staticstuffs.ConvertStringtoDate("07-08-2004"),Staticstuffs.NGUOIDUNG,Staticstuffs.FEMALE,"1111111112","lmaoxd@gmail.com",null);
-//        UserDao userDao = new UserDao(this);
-//        userDao.addUser(user);
-//        userDao.addUser(user2);
-//        Review review = new Review("kinda mid but ok",2,1,3);
-//        Review review2 = new Review("Giày dỏm 0/10 kys!",1f,1,2);
-//        ReviewDao reviewDao = new ReviewDao(this);
-//        reviewDao.addReview(review);
-//        reviewDao.addReview(review2);
 
 
     }
