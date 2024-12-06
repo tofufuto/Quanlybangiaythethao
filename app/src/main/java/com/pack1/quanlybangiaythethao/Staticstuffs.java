@@ -1,7 +1,9 @@
 package com.pack1.quanlybangiaythethao;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -12,6 +14,12 @@ import java.util.Date;
 
 public class Staticstuffs {
     public static String DATE_FORMATTER = "dd-MM-yyyy";
+    public static final String NGUOIDUNG = "CUSTOMER";
+    public static final String NHANVIEN = "EMPLOYEE";
+    public static final String QUANTRI = "ADMIN";
+
+    public static final String NAM = "MALE";
+    public static final String NU = "FEMALE";
     public static String ConvertDatetoString(Date date)
     {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMATTER);
@@ -55,4 +63,14 @@ public class Staticstuffs {
             return null; // Trả về null nếu có lỗi
         }
     }
+    public static Bitmap uriToBitmap(Context context, Uri imageUri) {
+        try {
+            InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+            return BitmapFactory.decodeStream(inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

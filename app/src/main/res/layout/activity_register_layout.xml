@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginLayout">
+
+   <ScrollView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       tools:ignore="MissingConstraints">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+
+           <TextView
+               android:id="@+id/viewDangKy"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="5dp"
+               android:text="Đăng Ký"
+               android:textAlignment="center"
+               android:textColor="#26C1D5"
+               android:textSize="20dp"
+               android:textStyle="italic" />
+
+           <TableLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:shrinkColumns="1"
+               android:stretchColumns="1">
+
+               <!-- Row for Username -->
+               <TableRow>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="8dp"
+                       android:text="Username:" />
+
+                   <EditText
+                       android:id="@+id/etRegUserName"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:hint="Enter your username"
+                       android:focusable="auto"
+                       android:focusableInTouchMode="true"
+                       android:inputType="text"
+                       android:nextFocusDown="@id/etRegPassword"
+                       android:padding="8dp" />
+               </TableRow>
+
+               <!-- Row for Password -->
+               <TableRow>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="8dp"
+                       android:text="Password:" />
+
+                   <EditText
+                       android:id="@+id/etRegPassword"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:hint="Enter your password"
+                       android:inputType="textPassword"
+                       android:padding="8dp" />
+               </TableRow>
+
+               <TableLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:stretchColumns="1"
+                   tools:ignore="ExtraText">
+
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+
+                       <TextView
+                           android:id="@+id/tvUpperCase"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Contains an uppercase letter"
+                           android:visibility="gone"
+                           android:textColor="@android:color/holo_red_dark" />
+
+                       <TextView
+                           android:id="@+id/tvNumber"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Contains a number"
+                           android:visibility="gone"
+                           android:textColor="@android:color/holo_red_dark" />
+
+                       <TextView
+                           android:id="@+id/tvSpecialChar"
+                           android:layout_width="wrap_content"
+                           android:visibility="gone"
+                           android:layout_height="wrap_content"
+                           android:text="Contains a special character"
+                           android:textColor="@android:color/holo_red_dark" />
+
+                   </LinearLayout>
+                   <!--                &lt;!&ndash; Row for Password Again&ndash;&gt;-->
+                   <!--                <TableRow>-->
+
+                   <!--                    <TextView-->
+                   <!--                        android:layout_width="wrap_content"-->
+                   <!--                        android:layout_height="wrap_content"-->
+                   <!--                        android:padding="8dp"-->
+                   <!--                        android:text="Confirm password:" />-->
+
+                   <!--                    <EditText-->
+                   <!--                        android:id="@+id/etRegCFPassword"-->
+                   <!--                        android:layout_width="match_parent"-->
+                   <!--                        android:layout_height="50dp"-->
+                   <!--                        android:hint="Enter your password again"-->
+                   <!--                        android:inputType="textPassword"-->
+                   <!--                        android:nextFocusDown="@id/etfname"-->
+                   <!--                        android:padding="8dp" />-->
+                   <!--                </TableRow>-->
+                   <!--                &lt;!&ndash; Row for "Confirm password" textview&ndash;&gt;-->
+                   <!--                <TableLayout-->
+                   <!--                    android:stretchColumns="1">-->
+                   <!--                    <TableRow>-->
+
+                   <!--                        <TextView-->
+                   <!--                            android:id="@+id/tvcfpassword"-->
+                   <!--                            android:layout_width="wrap_content"-->
+                   <!--                            android:layout_height="wrap_content"-->
+                   <!--                            android:padding="8dp"-->
+                   <!--                            android:text=""-->
+                   <!--                            android:visibility="invisible"/>-->
+
+                   <!--                    </TableRow>-->
+                   <!--                </TableLayout>-->
+
+               </TableLayout>
+               <!-- TableRow chứa checkbox   -->
+               <TableRow
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <CheckBox
+                       android:id="@+id/cbShowPassword"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Hiện mật khẩu" />
+               </TableRow>
+
+               <!-- Row for first name -->
+               <TableRow>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="8dp"
+                       android:text="First name:" />
+
+                   <EditText
+                       android:id="@+id/etfname"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:hint="Enter your first name !"
+                       android:nextFocusDown="@id/etlname"
+                       android:padding="8dp" />
+               </TableRow>
+               <!-- Row for last name -->
+               <TableRow>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:nextFocusDown="@id/etfname"
+                       android:padding="8dp"
+                       android:text="Last name:" />
+
+                   <EditText
+                       android:id="@+id/etlname"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:hint="Enter your last name !"
+                       android:nextFocusDown="@id/etRegbirth"
+                       android:padding="8dp" />
+               </TableRow>
+               <!-- Row for Numbers -->
+               <TableRow>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="8dp"
+                       android:text="Numbers:" />
+
+                   <EditText
+                       android:id="@+id/etRegNumbers"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:hint="Enter your numbers"
+                       android:inputType="number"
+                       android:nextFocusDown="@id/etRegbirth"
+                       android:padding="8dp" />
+               </TableRow>
+               <!-- Row for birth  -->
+               <TableRow>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="8dp"
+                       android:text="Birth:" />
+
+                   <EditText
+                       android:id="@+id/etRegbirth"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:focusable="false"
+                       android:hint="Click here !"
+                       android:inputType="none"
+                       android:nextFocusDown="@id/checkbox_male"
+                       android:padding="8dp" />
+               </TableRow>
+
+               <!-- Row for gender  -->
+               <TableRow android:id="@+id/tbrCheckbox">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="8dp"
+                       android:text="Gender:" />
+                   <!-- Checkbox Male -->
+                   <LinearLayout
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                       <CheckBox
+                           android:id="@+id/checkbox_male"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:nextFocusDown="@id/checkbox_female"
+                           android:text="Male" />
+
+                       <CheckBox
+                           android:id="@+id/checkbox_female"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:nextFocusDown="@id/etRegEmail"
+                           android:text="Female" />
+                   </LinearLayout>
+               </TableRow>
+               <!-- Row for gmail  -->
+               <TableRow>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:padding="8dp"
+                       android:text="Email:" />
+
+                   <EditText
+                       android:id="@+id/etRegEmail"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:hint="Enter your email !"
+                       android:inputType="textEmailAddress"
+                       android:nextFocusDown="@id/btRegSumbit"
+                       android:padding="8dp" />
+               </TableRow>
+               <TableLayout
+                   android:stretchColumns="1">
+                   <TableRow>
+                       <TextView
+                           android:id="@+id/textEmail"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:padding="8dp"
+                           android:visibility="gone"
+                           android:text="example:abc123@gmail.com" />
+                   </TableRow>
+               </TableLayout>
+               <!-- Row for avatar  -->
+
+
+               <LinearLayout
+                   android:orientation="horizontal">
+                   <TableRow
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <!--                                <TextView-->
+                       <!--                                    android:layout_width="wrap_content"-->
+                       <!--                                    android:layout_height="wrap_content"-->
+                       <!--                                    android:text="Avatar:"-->
+                       <!--                                    android:padding="8dp" />-->
+
+                       <Button
+                           android:id="@+id/btnChooseImage"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="20dp"
+                           android:layout_marginTop="28dp"
+                           android:width="120dp"
+                           android:height="50dp"
+                           android:text="Chọn ảnh" />
+
+                       <ImageView
+                           android:id="@+id/imgAvatar"
+                           android:layout_width="100dp"
+                           android:layout_height="100dp"
+                           android:layout_marginLeft="80dp"
+
+                           android:scaleType="centerCrop"
+                           android:src="@drawable/user" />
+
+                   </TableRow>
+               </LinearLayout>
+
+
+
+               <!-- Row for Login Button -->
+               <TableRow>
+
+                   <Button
+                       android:id="@+id/btRegSumbit"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_span="2"
+                       android:nextFocusDown="@id/btBack"
+                       android:padding="8dp"
+                       android:text="Đăng Ký" />
+               </TableRow>
+
+               <TableRow>
+
+                   <Button
+                       android:id="@+id/btBack"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_span="2"
+                       android:padding="8dp"
+                       android:text="Back" />
+               </TableRow>
+
+           </TableLayout>
+       </LinearLayout>
+   </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
