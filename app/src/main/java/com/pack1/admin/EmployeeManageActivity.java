@@ -1,11 +1,14 @@
 package com.pack1.admin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +25,14 @@ import java.util.ArrayList;
 import custom_adapter.EmployeesListAdapter;
 
 public class EmployeeManageActivity extends AppCompatActivity {
+    private final ActivityResultLauncher<Intent> addEmployeeLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+
+                if (result.getResultCode() == RESULT_OK) {
+                    // pass
+                }
+            }
+    );
 
 
     Toolbar toolbar;
@@ -63,7 +74,8 @@ public class EmployeeManageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.btnadd) {
-            //
+            Intent intent = new Intent(this, AddEmployeeActivity.class);
+            addEmployeeLauncher.launch(intent);
         }
         if(id == R.id.search_employee)
         {

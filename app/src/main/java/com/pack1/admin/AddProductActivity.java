@@ -131,13 +131,14 @@ public class AddProductActivity extends AppCompatActivity {
             return rs;
         } catch (Exception e) {
             Toast.makeText(context, "Lỗi không thể thêm sản phẩm \n (!) Kiểm tra lại thông tin điền", Toast.LENGTH_SHORT).show();
+            return -1;
         }
-        return -1;
     }
 
 
     private class AddProductToDatabaseAsync extends AsyncTask<Void,Void,Void>
     {
+        int rs;
         private Context context;
         AlertDialog loadingDia;
         public AddProductToDatabaseAsync(Context context)
@@ -160,7 +161,7 @@ public class AddProductActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try{
-                int rs = AddProductToDatabase(context);
+                rs = AddProductToDatabase(context);
                 if(rs != -1)
                     addProductImagesToDatabase(rs);
             }catch (Exception e)
@@ -176,6 +177,8 @@ public class AddProductActivity extends AppCompatActivity {
             loadingDia.dismiss();
             setResult(RESULT_OK);
             clearAllInputField();
+            if(rs == -1)
+                Toast.makeText(getApplicationContext(),"Lỗi không thêm vào được Database",Toast.LENGTH_SHORT).show();
         }
     }
 
