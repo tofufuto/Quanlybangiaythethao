@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Quanlybangiaythethao"
         tools:targetApi="31">
         <activity
+            android:name="com.pack1.admin.EmployeeDetailAdmin"
+            android:exported="false" />
+        <activity
             android:name="com.pack1.admin.AddEmployeeActivity"
             android:exported="false" />
         <activity

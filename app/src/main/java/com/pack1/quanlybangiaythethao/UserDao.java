@@ -79,10 +79,10 @@ public class UserDao {
         cursor.close();
         return null;
     }
-    public ArrayList<User> getAllEmployees() {
+    public ArrayList<User> getAllUserByRole(String strRole) {
         ArrayList<User> empList = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from User", null);
+        Cursor cursor = db.rawQuery("select * from User where role = ?", new String[]{strRole});
         if (cursor.moveToNext()) {
             do {
                 int user_id = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
@@ -104,6 +104,7 @@ public class UserDao {
         db.close();
         return empList;
     }
+
 
 
 }

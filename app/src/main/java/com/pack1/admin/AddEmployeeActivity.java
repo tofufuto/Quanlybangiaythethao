@@ -2,6 +2,7 @@ package com.pack1.admin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,6 +27,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.pack1.quanlybangiaythethao.DatabaseHelper;
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
 import com.pack1.quanlybangiaythethao.User;
@@ -39,6 +41,8 @@ public class AddEmployeeActivity extends AppCompatActivity {
 
     final static int PICK_IMAGE_REQUEST = 1;
 
+    SQLiteDatabase db;
+    DatabaseHelper dbhelper;
     EditText usernameInput,passwordInput,fNameInput,lNameInput,gmailInput,numberInput;
     CalendarView birthPicker;
     Button addAvatar,btnAddEmployee;
@@ -73,6 +77,9 @@ public class AddEmployeeActivity extends AppCompatActivity {
         rdMale = findViewById(R.id.rdMale);
         rdFemale = findViewById(R.id.rdFemale);
         btnAddEmployee = findViewById(R.id.btnaddemp);
+
+        dbhelper = new DatabaseHelper(this);
+        db = dbhelper.getWritableDatabase();
 
         btnAddEmployee.setOnClickListener(view -> {
             new AddProductToDatabaseAsync(this).execute();
@@ -138,6 +145,8 @@ public class AddEmployeeActivity extends AppCompatActivity {
             //clearAllInputField();
             if(rs == -1)
                 Toast.makeText(getApplicationContext(),"Lỗi không thêm vào được Database",Toast.LENGTH_SHORT).show();
+            else
+                clearAllInputField();
         }
     }
 
@@ -195,5 +204,18 @@ public class AddEmployeeActivity extends AppCompatActivity {
             setResult(RESULT_OK);
         }
         return false;
+    }
+    private void clearAllInputField()
+    {
+        usernameInput.setText("");
+        passwordInput.setText("");
+        fNameInput.setText("");
+        lNameInput.setText("");
+        gmailInput.setText("");
+        numberInput.setText("");
+        avatarView.setImageResource(R.drawable.ic_launcher_background);
+        imageBitmap = null;
+        rdMale.setChecked(true);
+        rdFemale.setChecked(false);
     }
 }

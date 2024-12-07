@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -17,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.pack1.quanlybangiaythethao.R;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
 import com.pack1.quanlybangiaythethao.User;
 import com.pack1.quanlybangiaythethao.UserDao;
 
@@ -25,11 +29,11 @@ import java.util.ArrayList;
 import custom_adapter.EmployeesListAdapter;
 
 public class EmployeeManageActivity extends AppCompatActivity {
-    private final ActivityResultLauncher<Intent> addEmployeeLauncher = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> addOrModifEmployeeLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
 
                 if (result.getResultCode() == RESULT_OK) {
-                    // pass
+                    loadEmployees();
                 }
             }
     );
@@ -52,14 +56,22 @@ public class EmployeeManageActivity extends AppCompatActivity {
 
         employeeListDisplay = findViewById(R.id.listEmployeesDisplay);
 
-
-
         loadEmployees();
+
+        employeeListDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), EmployeeDetailAdmin.class);
+                TextView emplId = view.findViewById(R.id.empl_id);
+                intent.putExtra("EmployeeID",emplId.getText().toString());
+                addOrModifEmployeeLauncher.launch(intent);
+            }
+        });
     }
 
     private void loadEmployees()
     {   UserDao userDao = new UserDao(this);
-        ArrayList<User> empList = userDao.getAllEmployees();
+        ArrayList<User> empList = userDao.getAllUserByRole(Staticstuffs.NHANVIEN);
         EmployeesListAdapter employeesListAdapter = new EmployeesListAdapter(this,empList,this.getLayoutInflater());
         employeeListDisplay.setAdapter(employeesListAdapter);
     }
@@ -75,7 +87,7 @@ public class EmployeeManageActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.btnadd) {
             Intent intent = new Intent(this, AddEmployeeActivity.class);
-            addEmployeeLauncher.launch(intent);
+            addOrModifEmployeeLauncher.launch(intent);
         }
         if(id == R.id.search_employee)
         {

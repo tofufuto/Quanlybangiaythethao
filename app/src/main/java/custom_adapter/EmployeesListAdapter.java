@@ -54,6 +54,8 @@ public class EmployeesListAdapter extends BaseAdapter {
 
         TextView employeeName = view.findViewById(R.id.textViewName);
         employeeName.setText(employeeList.get(i).getFname()+" "+employeeList.get(i).getLname());
+        TextView empid = view.findViewById(R.id.empl_id);
+        empid.setText(""+employeeList.get(i).getUserId());
         return view;
     }
 }
