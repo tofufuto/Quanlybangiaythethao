@@ -173,7 +173,7 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
         return raffacted;
     }
 
-    private void createImageSelection()// lấy ảnh đại diện cho product
+    private void createImageSelection()// mở thư viện ảnh để lấy ảnh đại diện cho user
     {
         addAvatar.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -181,9 +181,9 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
         });
     }
 
-    private void employeeAvatarRequestHandler(int requestCode, int resultCode, Intent data) {
+    private void employeeAvatarRequestHandler(int requestCode, int resultCode, Intent data) {//khi chọn xong một ảnh thì sẽ lấy dc uri
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri selectedImageUri = data.getData();
+            Uri selectedImageUri = data.getData();// data.getData() uri
             imageBitmap = Staticstuffs.uriToBitmap(this,selectedImageUri);
             avatarView.setImageURI(selectedImageUri);
         }
