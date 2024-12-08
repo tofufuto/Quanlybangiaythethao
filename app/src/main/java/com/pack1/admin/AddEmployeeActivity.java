@@ -82,19 +82,19 @@ public class AddEmployeeActivity extends AppCompatActivity {
         db = dbhelper.getWritableDatabase();
 
         btnAddEmployee.setOnClickListener(view -> {
-            new AddProductToDatabaseAsync(this).execute();
+            new AddUserToDatabaseAsync(this).execute();
         });
 
         birthPicker.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                selectedDate = day+"-"+month+"-"+year;
+                selectedDate = day+"-"+(month+1)+"-"+year;
             }
         });
 
-        addAvatar.setOnClickListener(view -> {
+
             createImageSelection();
-        });
+
 
         birthPicker.setMaxDate(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
@@ -104,12 +104,12 @@ public class AddEmployeeActivity extends AppCompatActivity {
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         birthPicker.setDate(calendar.getTimeInMillis(), true, true);
     }
-    private class AddProductToDatabaseAsync extends AsyncTask<Void,Void,Void>
+    private class AddUserToDatabaseAsync extends AsyncTask<Void,Void,Void>
     {
         int rs;
         private Context context;
         AlertDialog loadingDia;
-        public AddProductToDatabaseAsync(Context context)
+        public AddUserToDatabaseAsync(Context context)
         {
             this.context = context;
         }

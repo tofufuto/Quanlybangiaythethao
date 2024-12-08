@@ -105,6 +105,32 @@ public class UserDao {
         return empList;
     }
 
+    public int updateUserById(int userID, User user)
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username",user.getUserName());
+        values.put("password",user.getPassword());
+        values.put("fname",user.getFname());
+        values.put("lname",user.getLname());
+        values.put("birth",Staticstuffs.ConvertDatetoString( user.getBirth()));
+        values.put("role",user.getRole());
+        values.put("gender",user.getGender());
+        values.put("gmail",user.getGmail());
+        values.put("numbers",user.getNumbers());
+        values.put("avatar",Staticstuffs.bitmapToByteArray(user.getAvatar()));
+        int rowaffected = db.update("User",values,"user_id = ?",new String[]{""+userID});
+        db.close();
+        return rowaffected;
+    }
+    public int deleteUserById(int userID)
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int rowdeleted = db.delete("User","user_id = ?",new String[]{""+userID});
+        db.close();
+        return rowdeleted;
+    }
+
 
 
 }
