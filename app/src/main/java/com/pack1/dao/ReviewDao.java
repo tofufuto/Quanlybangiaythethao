@@ -1,12 +1,14 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.pack1.models.Review;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ReviewDao {
     DatabaseHelper dbhelper;
@@ -21,7 +23,7 @@ public class ReviewDao {
         ContentValues values = new ContentValues();
         values.put("review_text",review.getReview());
         values.put("rating",review.getRating());
-        values.put("reviewdate",Staticstuffs.ConvertDatetoString(review.getReviewDate()));
+        values.put("reviewdate", Staticstuffs.ConvertDatetoString(review.getReviewDate()));
         values.put("user_id",review.getUserId());
         values.put("product_id",review.getProductId());
         long rs = db.insert("Review",null,values);

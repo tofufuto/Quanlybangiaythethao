@@ -22,9 +22,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.pack1.quanlybangiaythethao.DatabaseHelper;
-import com.pack1.quanlybangiaythethao.Product;
-import com.pack1.quanlybangiaythethao.ProductDao;
+import com.pack1.dao.DatabaseHelper;
+import com.pack1.models.Product;
+import com.pack1.dao.ProductDao;
 import com.pack1.quanlybangiaythethao.R;
 
 import java.util.ArrayList;

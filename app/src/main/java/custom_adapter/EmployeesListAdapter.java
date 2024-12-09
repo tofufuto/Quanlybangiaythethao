@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pack1.quanlybangiaythethao.R;
-import com.pack1.quanlybangiaythethao.Review;
-import com.pack1.quanlybangiaythethao.User;
+import com.pack1.models.User;
 
 import java.util.ArrayList;
 

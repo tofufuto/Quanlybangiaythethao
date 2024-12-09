@@ -25,11 +25,11 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.pack1.quanlybangiaythethao.DatabaseHelper;
+import com.pack1.dao.DatabaseHelper;
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
-import com.pack1.quanlybangiaythethao.User;
-import com.pack1.quanlybangiaythethao.UserDao;
+import com.pack1.models.User;
+import com.pack1.dao.UserDao;
 
 import org.jetbrains.annotations.Nullable;
 

@@ -1,4 +1,4 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,12 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-import android.graphics.Bitmap;
-
-import java.util.ArrayList;
+import com.pack1.models.Product;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
 
 
 public class ProductDao {

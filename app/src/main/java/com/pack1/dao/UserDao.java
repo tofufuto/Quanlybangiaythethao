@@ -1,13 +1,13 @@
-package com.pack1.quanlybangiaythethao;
-
-import static com.pack1.quanlybangiaythethao.DatabaseHelper.USER_TABLE;
+package com.pack1.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.util.Log;
+
+import com.pack1.quanlybangiaythethao.Staticstuffs;
+import com.pack1.models.User;
 
 import java.util.ArrayList;
 import java.util.Date;

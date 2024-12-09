@@ -1,4 +1,4 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.models;
 
 import android.graphics.Bitmap;
 

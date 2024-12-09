@@ -1,9 +1,7 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.models;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 
-import java.util.BitSet;
 import java.util.Date;
 
 public class User {

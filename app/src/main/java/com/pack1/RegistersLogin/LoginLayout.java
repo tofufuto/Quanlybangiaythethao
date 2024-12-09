@@ -17,10 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pack1.admin.AdminHome;
 import com.pack1.customer.HomeActivity;
 import com.pack1.employee.EmployeeHome;
-import com.pack1.quanlybangiaythethao.DatabaseHelper;
+import com.pack1.dao.DatabaseHelper;
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
-import com.pack1.quanlybangiaythethao.UserDao;
+import com.pack1.dao.UserDao;
 
 
 public class LoginLayout extends AppCompatActivity {

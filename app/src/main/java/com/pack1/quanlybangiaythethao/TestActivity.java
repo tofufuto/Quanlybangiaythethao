@@ -7,13 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import java.util.Date;
+
+import com.pack1.dao.DatabaseHelper;
 
 //mấy hàm biến xài chung d(ể ở cái lớp Staticstuffs
 //thao tác với database xài lớp DatabaseHelper với mấy cái class Dao
 //mấy hàm xóa sữa sẽ viết thêm ở mấy cái lớp Dao
 //mấy cái id khóa chính của bảng là integer tự tăng nên khi add dô bảng thì đừng add id của khóa chính
-public class Sign_in extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity {
 
 
 

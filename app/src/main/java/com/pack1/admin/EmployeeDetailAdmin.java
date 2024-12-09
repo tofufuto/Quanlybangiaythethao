@@ -28,13 +28,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.pack1.quanlybangiaythethao.DatabaseHelper;
+import com.pack1.dao.DatabaseHelper;
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
-import com.pack1.quanlybangiaythethao.User;
-import com.pack1.quanlybangiaythethao.UserDao;
+import com.pack1.models.User;
+import com.pack1.dao.UserDao;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class EmployeeDetailAdmin extends AppCompatActivity {

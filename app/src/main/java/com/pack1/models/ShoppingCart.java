@@ -1,4 +1,4 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.models;
 
 public class ShoppingCart {
     private int userId;

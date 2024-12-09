@@ -2,15 +2,12 @@ package custom_adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.pack1.quanlybangiaythethao.Product;
 import com.pack1.quanlybangiaythethao.R;
 
 import java.util.List;

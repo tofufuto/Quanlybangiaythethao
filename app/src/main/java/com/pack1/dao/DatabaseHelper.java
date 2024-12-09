@@ -1,4 +1,4 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

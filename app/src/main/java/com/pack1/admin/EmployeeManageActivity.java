@@ -21,8 +21,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
-import com.pack1.quanlybangiaythethao.User;
-import com.pack1.quanlybangiaythethao.UserDao;
+import com.pack1.models.User;
+import com.pack1.dao.UserDao;
 
 import java.util.ArrayList;
 

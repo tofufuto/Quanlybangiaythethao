@@ -8,11 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pack1.quanlybangiaythethao.ProductDao;
 import com.pack1.quanlybangiaythethao.R;
-import com.pack1.quanlybangiaythethao.Review;
-import com.pack1.quanlybangiaythethao.User;
-import com.pack1.quanlybangiaythethao.UserDao;
+import com.pack1.models.Review;
+import com.pack1.dao.UserDao;
 
 import java.util.ArrayList;
 

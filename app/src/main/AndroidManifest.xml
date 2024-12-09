@@ -46,7 +46,7 @@
             android:name="com.pack1.admin.AddProductActivity"
             android:exported="false" />
         <activity
-            android:name=".Sign_in"
+            android:name=".TestActivity"
             android:exported="false" />
         <activity
             android:name="com.pack1.RegistersLogin.RegisterLayout"

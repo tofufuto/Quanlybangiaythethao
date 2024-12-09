@@ -1,10 +1,13 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+
+import com.pack1.models.ProducImage;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
 
 import java.util.ArrayList;
 
@@ -19,7 +22,7 @@ public class ProductImageDao {
     {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("Image",Staticstuffs.bitmapToByteArray(producImage.getImage()));
+        values.put("Image", Staticstuffs.bitmapToByteArray(producImage.getImage()));
         values.put("product_id",producImage.getProductId());
         long rs = db.insert("Product_images",null,values);
         db.close();

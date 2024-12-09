@@ -1,8 +1,10 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.pack1.models.ShoppingCart;
 
 public class ShoppingCartDao {
     private DatabaseHelper dbHelper;
