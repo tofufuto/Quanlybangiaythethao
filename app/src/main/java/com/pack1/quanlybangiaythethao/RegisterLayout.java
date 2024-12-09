@@ -265,6 +265,18 @@ public class RegisterLayout extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data.getData() != null) {
+            Uri selectedImageUri = data.getData(); // Lấy URI của ảnh được chọn
+            if (selectedImageUri != null) {
+                imgAvatar.setImageURI(selectedImageUri); // Hiển thị ảnh trong ImageView
+                bitmapAvatar = Staticstuffs.uriToBitmap(this, selectedImageUri);
+            }
+        }
+    }
+
     // Hien ra lịch chọn cho birth
     private void showDatePicker() {
         final Calendar calendar = Calendar.getInstance();
