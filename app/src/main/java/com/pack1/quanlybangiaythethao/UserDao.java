@@ -1,15 +1,12 @@
 package com.pack1.quanlybangiaythethao;
 
 import static com.pack1.quanlybangiaythethao.DatabaseHelper.USER_TABLE;
-import static com.pack1.quanlybangiaythethao.Staticstuffs.bitmapToByteArray;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,22 +14,15 @@ import java.util.Date;
 
 //Dao data access object
 public class UserDao {
-
-    private static DatabaseHelper dbHelper;
-    private SQLiteDatabase db;
-
-    public UserDao(SQLiteDatabase db) {
-        this.db = db;
-    }
+    private DatabaseHelper dbHelper;
     public UserDao(Context context)
     {
         dbHelper = new DatabaseHelper(context);
     }
 
-    public static long addUser(User user)//-1 nếu không thêm dc
+    public long addUser(User user)//-1 nếu không thêm dc
     {
         //try {
-
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("username",user.getUserName());
@@ -49,8 +39,12 @@ public class UserDao {
         long rs = db.insert("User", null, values);
         db.close();
         return rs;
-
-
+        //}catch (Exception e)
+        //{
+        //
+        //}
+        // return -1;
+    }
     public User getUserById(int userId)
     {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -68,20 +62,20 @@ public class UserDao {
         Bitmap avatar;
         if(cursor.moveToNext())
         {
-              uId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
-              userName = cursor.getString(cursor.getColumnIndexOrThrow("username"));
-              password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
-              fname = cursor.getString(cursor.getColumnIndexOrThrow("fname"));
-              lname = cursor.getString(cursor.getColumnIndexOrThrow("lname"));
-              birth = Staticstuffs.ConvertStringtoDate( cursor.getString(cursor.getColumnIndexOrThrow("birth")));
-              role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
-              gender = cursor.getString(cursor.getColumnIndexOrThrow("gender"));
-              numbers = cursor.getString(cursor.getColumnIndexOrThrow("numbers"));
-              gmail = cursor.getString(cursor.getColumnIndexOrThrow("gmail"));
-              avatar = Staticstuffs.byteArrayToBitmap( cursor.getBlob(cursor.getColumnIndexOrThrow("avatar")));
-              db.close();
-              cursor.close();
-              return new User(userName,password,fname,lname,birth,role,gender,numbers,gmail,avatar,uId);
+            uId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
+            userName = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+            password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+            fname = cursor.getString(cursor.getColumnIndexOrThrow("fname"));
+            lname = cursor.getString(cursor.getColumnIndexOrThrow("lname"));
+            birth = Staticstuffs.ConvertStringtoDate( cursor.getString(cursor.getColumnIndexOrThrow("birth")));
+            role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
+            gender = cursor.getString(cursor.getColumnIndexOrThrow("gender"));
+            numbers = cursor.getString(cursor.getColumnIndexOrThrow("numbers"));
+            gmail = cursor.getString(cursor.getColumnIndexOrThrow("gmail"));
+            avatar = Staticstuffs.byteArrayToBitmap( cursor.getBlob(cursor.getColumnIndexOrThrow("avatar")));
+            db.close();
+            cursor.close();
+            return new User(userName,password,fname,lname,birth,role,gender,numbers,gmail,avatar,uId);
         }
         db.close();
         cursor.close();
@@ -139,15 +133,39 @@ public class UserDao {
         return rowdeleted;
     }
 
-    public static boolean checkUser(String username, String password) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + USER_TABLE + " WHERE " +
-                username + password + "=?", new String[]{username, password});
-        return cursor.getCount() > 0;// 1 neu hop le
+    public int checkUser(String username, String password) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase(); // Mở database ở chế độ đọc
+
+        // Truy vấn kiểm tra username và password
+        String query = "SELECT user_id FROM User WHERE username = ? AND password = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{username, password});
+
+        int userId = -1; // Giá trị mặc định nếu không tìm thấy
+
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(0); // Lấy giá trị user_id
+        }
+
+        cursor.close(); // Đóng cursor
+        db.close(); // Đóng database
+        return userId; // Trả về user_id hoặc -1 nếu không tìm thấy
     }
 
+    public String getUserRole(int userId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase(); // Mở database ở chế độ đọc
+        String role = null; // Khởi tạo giá trị trả về là null
 
+        // Truy vấn để lấy role dựa trên userID
+        String query = "SELECT role FROM User WHERE user_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
 
+        if (cursor.moveToFirst()) {
+            role = cursor.getString(cursor.getColumnIndexOrThrow("role")); // Lấy giá trị cột role
+        }
+
+        cursor.close(); // Đóng cursor
+        db.close(); // Đóng database
+        return role; // Trả về role (null nếu không tìm thấy userId)
+    }
 
 }
-

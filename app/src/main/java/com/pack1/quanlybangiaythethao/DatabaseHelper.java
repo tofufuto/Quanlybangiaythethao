@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Database.db";
     private static final int DATABASE_VERSION = 1;
-    protected   static final  String USER_TABLE = "CREATE TABLE User(user_id integer primary key autoincrement," +
+    protected  static final  String USER_TABLE = "CREATE TABLE User(user_id integer primary key autoincrement," +
             "username text UNIQUE,"+
             "password text,"+
             "fname text," +
@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "dateadded text," +
             "avatar blob"+
             ");";
-    private static final String  PRODUCT_TABLE = "CREATE TABLE Product (" +
+    protected static final String  PRODUCT_TABLE = "CREATE TABLE Product (" +
             "product_id INTEGER primary key autoincrement ," +
             "name TEXT UNIQUE," +
             "quantity INTEGER," +
@@ -34,13 +34,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "pd_image blob,"+
             "rating text"+
             ")";
-    private static final String PRODUCT_IMAGE_TABLE = "CREATE TABLE Product_images (" +
+    protected static final String PRODUCT_IMAGE_TABLE = "CREATE TABLE Product_images (" +
             "    img_id INTEGER PRIMARY KEY autoincrement," +
             "    Image BLOB," +
             "    product_id INTEGER," +
             "    FOREIGN KEY (product_id) REFERENCES Product(product_id)  ON DELETE CASCADE " +
             ")";
-    private static final String ORDER_TABLE = "CREATE TABLE User_order (" +
+    protected static final String ORDER_TABLE = "CREATE TABLE User_order (" +
             "    order_id INTEGER PRIMARY KEY autoincrement," +
             "    quantity INTEGER," +
             "    total_price REAL," +
@@ -51,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE SET NULL," +
             "    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE SET NULL" +
             ")";
-    public static final String REVIEW_TABLE ="CREATE TABLE Review (" +
+    protected static final String REVIEW_TABLE ="CREATE TABLE Review (" +
             "review_id INTEGER PRIMARY KEY AUTOINCREMENT," +
             "review_text TEXT," +
             "rating INTEGER CHECK(rating BETWEEN 1 AND 5)," +
@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE ,"+
             "FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE"+
             ")";
-    public static final String SHOPPING_CART_TABLE = "CREATE TABLE Shopping_cart (" +
+    protected static final String SHOPPING_CART_TABLE = "CREATE TABLE Shopping_cart (" +
             "  user_id INTEGER," +
             "  product_id INTEGER," +
             "  cart_id INTEGER PRIMARY KEY AUTOINCREMENT," +

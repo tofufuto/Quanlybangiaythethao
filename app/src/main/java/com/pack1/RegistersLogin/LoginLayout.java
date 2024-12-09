@@ -1,4 +1,4 @@
-package com.pack1.quanlybangiaythethao;
+package com.pack1.RegistersLogin;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,14 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.pack1.admin.AdminHome;
+import com.pack1.customer.HomeActivity;
+import com.pack1.employee.EmployeeHome;
+import com.pack1.quanlybangiaythethao.DatabaseHelper;
+import com.pack1.quanlybangiaythethao.R;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
+import com.pack1.quanlybangiaythethao.UserDao;
 
 
 public class LoginLayout extends AppCompatActivity {
@@ -54,9 +62,32 @@ public class LoginLayout extends AppCompatActivity {
                  public void onClick(View view) {
                      String taikhoan = username.getText().toString();
                      String matkhau = password.getText().toString();
-                     if (UserDao.checkUser(taikhoan, matkhau)) {
-                         Toast.makeText(LoginLayout.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                         startActivity(new Intent(LoginLayout.this, HomeActivity.class));
+                     if(taikhoan.equals(Staticstuffs.ADMIN_USER_NAME) && matkhau.equals(Staticstuffs.ADMIN_PASSWORD))
+                     {
+                         Intent intent = new Intent(getApplicationContext(), AdminHome.class);
+                         startActivity(intent);
+                         return;
+                     }
+                     UserDao userDao = new UserDao(getApplicationContext());
+                     int userID = userDao.checkUser(taikhoan, matkhau);
+                     if (userID != -1) {
+                         try {
+                             if(userDao.getUserRole(userID).equals(Staticstuffs.NGUOIDUNG)) {
+                                 Toast.makeText(LoginLayout.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                                 Intent intent = new Intent(LoginLayout.this, HomeActivity.class);
+                                 intent.putExtra("currentUserId", "" + userID);
+                                 startActivity(intent);
+                             } else if (userDao.getUserRole(userID).equals(Staticstuffs.NHANVIEN)) {
+                                 Toast.makeText(LoginLayout.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                                 Intent intent = new Intent(LoginLayout.this, EmployeeHome.class);
+                                 intent.putExtra("currentUserId", "" + userID);
+                                 startActivity(intent);
+                             }
+                         }catch (Exception e)
+                         {
+                             e.printStackTrace();
+                         }
+
                      } else {
                          Toast.makeText(LoginLayout.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
                      }

@@ -4,7 +4,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginLayout">
+    tools:context="com.pack1.RegistersLogin.LoginLayout"
+    android:background="@color/slightlydarkerwhite"
+    >
 
    <ScrollView
        android:layout_width="wrap_content"
@@ -39,9 +41,11 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
-                       android:text="Username:" />
+                       android:text="Username:"
+                       android:textColor="@color/darkgray"/>
 
                    <EditText
+                       android:textColor="@color/darkgray"
                        android:id="@+id/etRegUserName"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
@@ -60,9 +64,11 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
-                       android:text="Password:" />
+                       android:text="Password:"
+                       android:textColor="@color/darkgray"/>
 
                    <EditText
+                       android:textColor="@color/darkgray"
                        android:id="@+id/etRegPassword"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
@@ -151,19 +157,22 @@
                        android:id="@+id/cbShowPassword"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Hiện mật khẩu" />
+                       android:text="Hiện mật khẩu"
+                       android:textColor="@color/darkgray"/>
                </TableRow>
 
                <!-- Row for first name -->
                <TableRow>
 
                    <TextView
+                       android:textColor="@color/darkgray"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
                        android:text="First name:" />
 
                    <EditText
+                       android:textColor="@color/darkgray"
                        android:id="@+id/etfname"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
@@ -175,6 +184,7 @@
                <TableRow>
 
                    <TextView
+                       android:textColor="@color/darkgray"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:nextFocusDown="@id/etfname"
@@ -182,6 +192,7 @@
                        android:text="Last name:" />
 
                    <EditText
+                       android:textColor="@color/darkgray"
                        android:id="@+id/etlname"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
@@ -193,12 +204,14 @@
                <TableRow>
 
                    <TextView
+                       android:textColor="@color/darkgray"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
                        android:text="Numbers:" />
 
                    <EditText
+                       android:textColor="@color/darkgray"
                        android:id="@+id/etRegNumbers"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
@@ -211,12 +224,14 @@
                <TableRow>
 
                    <TextView
+                       android:textColor="@color/darkgray"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
                        android:text="Birth:" />
 
                    <EditText
+                       android:textColor="@color/darkgray"
                        android:id="@+id/etRegbirth"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
@@ -231,6 +246,7 @@
                <TableRow android:id="@+id/tbrCheckbox">
 
                    <TextView
+                       android:textColor="@color/darkgray"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
@@ -242,6 +258,7 @@
                        android:orientation="horizontal">
 
                        <CheckBox
+                           android:textColor="@color/darkgray"
                            android:id="@+id/checkbox_male"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
@@ -249,6 +266,7 @@
                            android:text="Male" />
 
                        <CheckBox
+                           android:textColor="@color/darkgray"
                            android:id="@+id/checkbox_female"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
@@ -260,12 +278,14 @@
                <TableRow>
 
                    <TextView
+                       android:textColor="@color/darkgray"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
                        android:text="Email:" />
 
                    <EditText
+                       android:textColor="@color/darkgray"
                        android:id="@+id/etRegEmail"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
@@ -301,6 +321,7 @@
                        <!--                                    android:padding="8dp" />-->
 
                        <Button
+                           android:textColor="@color/darkgray"
                            android:id="@+id/btnChooseImage"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
@@ -328,6 +349,7 @@
                <TableRow>
 
                    <Button
+                       android:textColor="@color/darkgray"
                        android:id="@+id/btRegSumbit"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
@@ -340,6 +362,7 @@
                <TableRow>
 
                    <Button
+                       android:textColor="@color/darkgray"
                        android:id="@+id/btBack"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"

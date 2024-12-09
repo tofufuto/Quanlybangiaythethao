@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginLayout">
+    tools:context="com.pack1.RegistersLogin.LoginLayout"
+    android:background="@color/slightlydarkerwhite">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +35,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Username:"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:textColor="@color/darkgray"/>
 
                 <EditText
                     android:id="@+id/etUserName"
@@ -42,12 +44,14 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter your username"
                     android:nextFocusDown="@id/etPassword"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:textColor="@color/darkgray"/>
             </TableRow>
 
             <!-- Row for Password -->
             <TableRow>
                 <TextView
+                    android:textColor="@color/darkgray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Password:"
@@ -60,7 +64,8 @@
                     android:hint="Enter your password"
                     android:nextFocusDown="@id/btLogin"
                     android:inputType="textPassword"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:textColor="@color/darkgray"/>
             </TableRow>
             <!-- TableRow chứa checkbox   -->
             <TableRow
@@ -71,13 +76,15 @@
                     android:id="@+id/cbShowPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hiện mật khẩu" />
+                    android:text="Hiện mật khẩu"
+                    android:textColor="@color/darkgray"/>
             </TableRow>
 
 
             <!-- Row for Login Button -->
             <TableRow>
                 <Button
+                    android:textColor="@color/darkgray"
                     android:id="@+id/btLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,7 +97,7 @@
             <TableRow>
 
                 <Button
-
+                       android:textColor="@color/darkgray"
                     android:id="@+id/btRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

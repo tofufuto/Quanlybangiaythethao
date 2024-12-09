@@ -1,12 +1,8 @@
-package com.pack1.quanlybangiaythethao;
-
-import static androidx.core.app.ActivityCompat.startActivityForResult;
+package com.pack1.RegistersLogin;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,11 +21,15 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.pack1.quanlybangiaythethao.DatabaseHelper;
+import com.pack1.quanlybangiaythethao.R;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
+import com.pack1.quanlybangiaythethao.User;
+import com.pack1.quanlybangiaythethao.UserDao;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -240,12 +239,14 @@ public class RegisterLayout extends AppCompatActivity {
             String email = etEmail.getText().toString();
             String role = Staticstuffs.NGUOIDUNG;
             String sdt = etRegNumbers.getText().toString();
-            String gt = maleCheckBox.isChecked()?Staticstuffs.NAM:Staticstuffs.NU;
+            String gt = maleCheckBox.isChecked()?Staticstuffs.MALE:Staticstuffs.FEMALE;
             Bitmap avt = bitmapAvatar;
             UserDao userDao = new UserDao(this);
             User u = new User(tk,mk,fn,ln,date,role,gt,sdt,email,avt);
 
             int rs =(int)userDao.addUser(u);
+            if( rs != -1)
+                onBackPressed();
         }catch (Exception ex){
             Toast.makeText(this,"Loi",Toast.LENGTH_SHORT).show();
         }
