@@ -27,6 +27,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -67,6 +68,8 @@ public class RegisterLayout extends AppCompatActivity {
         btRegSubmit = findViewById(R.id.btRegSumbit);
         etRegPassWord = findViewById(R.id.etRegPassword);
         etRegUserName = findViewById(R.id.etRegUserName);
+        etRegFName = findViewById(R.id.etfname);
+        etRegLName = findViewById(R.id.etlname);
         tvUpperCase = findViewById(R.id.tvUpperCase);
         etRegNumbers = findViewById(R.id.etRegNumbers);
         tvSpecialChar = findViewById(R.id.tvSpecialChar);
@@ -212,8 +215,23 @@ public class RegisterLayout extends AppCompatActivity {
             }
         });
 
+        //xu ly bitmap avatar
+        galleryLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri selectedImageUri = result.getData().getData();
+                        if (selectedImageUri != null) {
+                            imgAvatar.setImageURI(selectedImageUri);
+                            bitmapAvatar = Staticstuffs.uriToBitmap(this, selectedImageUri);
+                        }
+                    }
+                }
+        );
         //xu ly nut dang ky
         btRegSubmit.setOnClickListener(view -> {
+
+        try{
             String tk = etRegUserName.getText().toString();
             String mk = etRegPassWord.getText().toString();
             String fn = etRegFName.getText().toString();
@@ -225,47 +243,28 @@ public class RegisterLayout extends AppCompatActivity {
             String gt = maleCheckBox.isChecked()?Staticstuffs.NAM:Staticstuffs.NU;
             Bitmap avt = bitmapAvatar;
             UserDao userDao = new UserDao(this);
-             User u = new User(tk,mk,fn,ln,date,role,gt,sdt,email,avt);
+            User u = new User(tk,mk,fn,ln,date,role,gt,sdt,email,avt);
 
-             int rs =(int)userDao.addUser(u);
-//            if (rs==1) {
-//                Toast.makeText(RegisterLayout.this, "User Registered", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(RegisterLayout.this, LoginLayout.class));
-//            } else {
-//                Toast.makeText(RegisterLayout.this, "Registration Failed", Toast.LENGTH_SHORT).show();
-//            }
-
+            int rs =(int)userDao.addUser(u);
+        }catch (Exception ex){
+            Toast.makeText(this,"Loi",Toast.LENGTH_SHORT).show();
+        }
 
         });
+
 
         //chon hinh anh avatar
             btChooseImg.setOnClickListener(view -> openGallery());
 
     }
 
-
-
     @SuppressWarnings("deprecation")
     private void openGallery()// lấy ảnh đại diện cho product
     {
-
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
-
-
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data.getData() != null) {
-            Uri selectedImageUri = data.getData(); // Lấy URI của ảnh được chọn
-            if (selectedImageUri != null) {
-                imgAvatar.setImageURI(selectedImageUri); // Hiển thị ảnh trong ImageView
-                bitmapAvatar = Staticstuffs.uriToBitmap(this,selectedImageUri);
-            }
-        }
-    }
     // Hien ra lịch chọn cho birth
     private void showDatePicker() {
         final Calendar calendar = Calendar.getInstance();
