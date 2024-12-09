@@ -24,7 +24,7 @@ public class AdminHome extends AppCompatActivity {
 
     Toolbar toolbar;
 
-    Button checkProductsBtn, employeeManageBtn;
+    Button checkProductsBtn, employeeManageBtn,statsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,11 @@ public class AdminHome extends AppCompatActivity {
         employeeManageBtn = findViewById(R.id.checknhanvien);
         employeeManageBtn.setOnClickListener(view -> {
             Intent intent = new Intent(this, EmployeeManageActivity.class);
+            startActivity(intent);
+        });
+        statsBtn = findViewById(R.id.statsbtn);
+        statsBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this,Stats.class);
             startActivity(intent);
         });
 
