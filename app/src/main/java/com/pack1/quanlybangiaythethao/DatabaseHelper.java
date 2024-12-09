@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Database.db";
     private static final int DATABASE_VERSION = 1;
-    private  static final  String USER_TABLE = "CREATE TABLE User(user_id integer primary key autoincrement," +
+    protected   static final  String USER_TABLE = "CREATE TABLE User(user_id integer primary key autoincrement," +
             "username text UNIQUE,"+
             "password text,"+
             "fname text," +
@@ -97,6 +97,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + "Shopping_cart");
         onCreate(db);
     }
+    public SQLiteDatabase getDatabase() {
+        return this.getWritableDatabase();}
 
 //    public void resetDatabase(SQLiteDatabase db)
 //    {

@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.pack1.quanlybangiaythethao"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.pack1.quanlybangiaythethao"
@@ -32,7 +32,9 @@ android {
 }
 
 dependencies {
-
+    implementation ("androidx.activity:activity:1.6.1")
+    implementation ("androidx.fragment:fragment:1.5.7")
+    implementation("androidx.core:core:1.12.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

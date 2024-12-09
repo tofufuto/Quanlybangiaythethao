@@ -20,6 +20,7 @@ public class Staticstuffs {
     public static final String MALE = "Nam";
     public static final String FEMALE = "Nữ";
     public static String DATE_FORMATTER = "dd-MM-yyyy";
+
     public static String ConvertDatetoString(Date date)
     {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMATTER);
@@ -75,6 +76,7 @@ public class Staticstuffs {
             return null;
         }
     }
+
     public static ArrayList<Bitmap> productImageListToBitmapList(ArrayList<ProducImage> pArr)
     {
         ArrayList<Bitmap> bitmaps = new ArrayList<>();
@@ -84,4 +86,5 @@ public class Staticstuffs {
         }
         return  bitmaps;
     }
+
 }
