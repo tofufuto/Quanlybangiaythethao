@@ -45,7 +45,6 @@ public class RegisterLayout extends AppCompatActivity {
     TableRow tableRow;
     TextView tvUpperCase, tvSpecialChar, tvNumber,tvEmail,tvConfirm;
     boolean flagPassword,flagEmail, flagConfirmPassword;
-    UserDao userDao;
     DatabaseHelper dbHelper;
     Bitmap bitmapAvatar;
     static final int PICK_IMAGE_REQUEST = 1;
@@ -99,7 +98,6 @@ public class RegisterLayout extends AppCompatActivity {
 //           }
 //       });
 
-        userDao = new UserDao(this);
         //button back lai giao dien dang nhap
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,16 +222,13 @@ public class RegisterLayout extends AppCompatActivity {
             String email = etEmail.getText().toString();
             String role = Staticstuffs.NGUOIDUNG;
             String sdt = etRegNumbers.getText().toString();
-            String gt;
-            if(maleCheckBox.isChecked()){
-                gt = Staticstuffs.NAM;
-            }
-            else {
-                gt = Staticstuffs.NU;
-            }
+            String gt = maleCheckBox.isChecked()?Staticstuffs.NAM:Staticstuffs.NU;
+            Bitmap avt = bitmapAvatar;
+            UserDao userDao = new UserDao(this);
+             User u = new User(tk,mk,fn,ln,date,role,gt,sdt,email,avt);
 
-           // User u = new User(tk,mk,fn,ln,date,role,gt,sdt,email,avt,id);
-//            if (userDao.addUser(user)) {
+             int rs =(int)userDao.addUser(u);
+//            if (rs==1) {
 //                Toast.makeText(RegisterLayout.this, "User Registered", Toast.LENGTH_SHORT).show();
 //                startActivity(new Intent(RegisterLayout.this, LoginLayout.class));
 //            } else {
@@ -257,17 +252,18 @@ public class RegisterLayout extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data.getData() != null) {
             Uri selectedImageUri = data.getData(); // Lấy URI của ảnh được chọn
             if (selectedImageUri != null) {
                 imgAvatar.setImageURI(selectedImageUri); // Hiển thị ảnh trong ImageView
+                bitmapAvatar = Staticstuffs.uriToBitmap(this,selectedImageUri);
             }
-             bitmapAvatar = Staticstuffs.uriToBitmap(this,selectedImageUri);
         }
     }
     // Hien ra lịch chọn cho birth
