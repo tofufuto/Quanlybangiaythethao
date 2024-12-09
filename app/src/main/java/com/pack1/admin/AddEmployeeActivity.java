@@ -1,5 +1,6 @@
 package com.pack1.admin;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +29,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.pack1.RegistersLogin.RegisterLayout;
 import com.pack1.dao.DatabaseHelper;
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
@@ -43,7 +46,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
     SQLiteDatabase db;
     DatabaseHelper dbhelper;
     EditText usernameInput,passwordInput,fNameInput,lNameInput,gmailInput,numberInput;
-    CalendarView birthPicker;
+    TextView birthPicker;
     Button addAvatar,btnAddEmployee;
     Bitmap imageBitmap;
     ImageView avatarView;
@@ -71,11 +74,11 @@ public class AddEmployeeActivity extends AppCompatActivity {
         lNameInput = findViewById(R.id.lnameInput);
         gmailInput = findViewById(R.id.gmailInput);
         numberInput = findViewById(R.id.numbersInput);
-        birthPicker = findViewById(R.id.calendarView);
         avatarView = findViewById(R.id.avatarView);
         rdMale = findViewById(R.id.rdMale);
         rdFemale = findViewById(R.id.rdFemale);
         btnAddEmployee = findViewById(R.id.btnaddemp);
+        birthPicker =findViewById(R.id.birthdaychoose);
 
         dbhelper = new DatabaseHelper(this);
         db = dbhelper.getWritableDatabase();
@@ -84,24 +87,32 @@ public class AddEmployeeActivity extends AppCompatActivity {
             new AddUserToDatabaseAsync(this).execute();
         });
 
-        birthPicker.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                selectedDate = day+"-"+(month+1)+"-"+year;
-            }
-        });
+
 
 
             createImageSelection();
 
 
-        birthPicker.setMaxDate(System.currentTimeMillis());
-        Calendar calendar = Calendar.getInstance();
+        birthPicker.setOnClickListener(view -> showDatePicker());
+
+    }
+    private void showDatePicker() {
+        final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-        calendar.set(Calendar.YEAR,  year - 18);   // Năm cần đặt
-        calendar.set(Calendar.MONTH, Calendar.JANUARY); // Tháng (tháng 1)
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        birthPicker.setDate(calendar.getTimeInMillis(), true, true);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    // Đặt ngày đã chọn vào EditText
+                    selectedDate = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
+                    birthPicker.setText(selectedDate);
+                },
+                year, month, day);
+
+        // giới hạn ngày, kh cho chọn tương lai
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.show();
     }
     private class AddUserToDatabaseAsync extends AsyncTask<Void,Void,Void>
     {

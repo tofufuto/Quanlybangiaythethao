@@ -132,13 +132,15 @@
                     android:text="Ngày sinh :"
                     android:textColor="@color/darkgray"
                     android:textSize="16sp" />
-
-                <CalendarView
-                    android:id="@+id/calendarView"
+                <TextView
+                    android:textColor="@color/darkgray"
+                    android:id="@+id/birthdaychoose"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
-                    />
+                    android:textSize="16sp"
+                    android:text="Chạm để chọn ngày" />
 
 
             </LinearLayout>

@@ -1,5 +1,6 @@
 package com.pack1.admin;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +19,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -34,6 +37,7 @@ import com.pack1.quanlybangiaythethao.Staticstuffs;
 import com.pack1.models.User;
 import com.pack1.dao.UserDao;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class EmployeeDetailAdmin extends AppCompatActivity {
@@ -43,7 +47,7 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
     SQLiteDatabase db;
     DatabaseHelper dbhelper;
     EditText usernameInput,passwordInput,fNameInput,lNameInput,gmailInput,numberInput;
-    CalendarView birthPicker;
+    TextView birthPicker;
     Button addAvatar,btnAddEmployee;
     Bitmap imageBitmap;
     ImageView avatarView;
@@ -73,7 +77,7 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
         lNameInput = findViewById(R.id.lnameInput);
         gmailInput = findViewById(R.id.gmailInput);
         numberInput = findViewById(R.id.numbersInput);
-        birthPicker = findViewById(R.id.calendarView);
+        birthPicker =findViewById(R.id.birthdaychoose);
         avatarView = findViewById(R.id.avatarView);
         rdMale = findViewById(R.id.rdMale);
         rdFemale = findViewById(R.id.rdFemale);
@@ -82,17 +86,11 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
         dbhelper = new DatabaseHelper(this);
         db = dbhelper.getWritableDatabase();
 
-        birthPicker.setMaxDate(System.currentTimeMillis());
 
         EmployeeID = Integer.parseInt(getIntent().getStringExtra("EmployeeID"));
         //Toast.makeText(this,""+EmployeeID,Toast.LENGTH_SHORT).show();
 
-        birthPicker.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                selectedDate = day+"-"+(month+1)+"-"+year;
-            }
-        });
+
 
         loadEmployeeFromDatabase();
 
@@ -103,7 +101,26 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
         btnAddEmployee.setOnClickListener(view -> {
             new updateNhanVienToDatabaseAsync(this).execute();
         });
+        birthPicker.setOnClickListener(view -> showDatePicker());
 
+    }
+    private void showDatePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    // Đặt ngày đã chọn vào EditText
+                    selectedDate = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
+                    birthPicker.setText(selectedDate);
+                },
+                year, month, day);
+
+        // giới hạn ngày, kh cho chọn tương lai
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.show();
     }
     private class updateNhanVienToDatabaseAsync extends AsyncTask<Void,Void,Void>
     {
@@ -155,6 +172,7 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
 
     private int updateUser(Context context)// return 0 if can't update
     {
+        Log.d("UPDATE USER",selectedDate);
         String gender = rdMale.isChecked() ? Staticstuffs.MALE:Staticstuffs.FEMALE;
 
         UserDao userDao = new UserDao(context);
@@ -198,9 +216,7 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
         lNameInput.setText(employee.getLname());
         Date birthdate = employee.getBirth();
 
-
-        long timestamp = birthdate.getTime();
-        birthPicker.setDate(timestamp, true, true);
+        birthPicker.setText(Staticstuffs.ConvertDatetoString(  employee.getBirth()));
 
         gmailInput.setText(employee.getGmail());
         numberInput.setText(employee.getNumbers());
