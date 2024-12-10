@@ -97,7 +97,7 @@ public class ProductDao {
         dbHelper.close();
         return resultList;
     }
-    public Product getProductName(String Name)
+public Product getProductName(String Name)// lấy 1 product ra bằng tên
     {
         String[] stringArgs = new String[]{Name};
         ArrayList<Product> resultList = new ArrayList<>();

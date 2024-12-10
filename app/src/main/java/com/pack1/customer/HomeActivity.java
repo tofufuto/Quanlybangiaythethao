@@ -71,10 +71,10 @@ public class HomeActivity extends AppCompatActivity {
         productDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ProductDao productDao = new ProductDao(getApplicationContext());
+               // ProductDao productDao = new ProductDao(getApplicationContext());
                 TextView pName = view.findViewById(R.id.pname);
                 Intent intent = new Intent(getApplicationContext(),CustomerProductDetail.class);
-                intent.putExtra("productId",""+ productDao.getProductIdByName(pName.getText().toString()));
+                intent.putExtra("productName",pName.getText().toString());
                 intent.putExtra("currentUserId",""+currentUserId);
                 startActivity(intent);
             }
