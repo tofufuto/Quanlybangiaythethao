@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -50,8 +52,6 @@ public class HomeActivity extends AppCompatActivity {
         try {
             Intent homeActiIntent = this.getIntent();
             currentUserId = Integer.parseInt(homeActiIntent.getStringExtra("currentUserId"));
-            currUserIdTextView = findViewById(R.id.current_user_id_Textview);
-            currUserIdTextView.setText("" + currentUserId);
         }
         catch (Exception e)
         {
@@ -68,7 +68,17 @@ public class HomeActivity extends AppCompatActivity {
 
         loadProductFromDatabase();
 
-
+        productDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ProductDao productDao = new ProductDao(getApplicationContext());
+                TextView pName = view.findViewById(R.id.pname);
+                Intent intent = new Intent(getApplicationContext(),CustomerProductDetail.class);
+                intent.putExtra("productId",""+ productDao.getProductIdByName(pName.getText().toString()));
+                intent.putExtra("currentUserId",""+currentUserId);
+                startActivity(intent);
+            }
+        });
 
 
     }
