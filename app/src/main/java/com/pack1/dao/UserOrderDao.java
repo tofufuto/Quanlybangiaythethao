@@ -23,6 +23,7 @@ public class UserOrderDao {
         values.put("dateorder", Staticstuffs.ConvertDatetoString( userOrder.getDateOrder()));
         values.put("user_id",userOrder.getUserId());
         values.put("product_id",userOrder.getProductId());
+        values.put("ship_address",userOrder.getShipAdress());
         long rs = db.insert("User_order",null,values);
         db.close();
         return rs;

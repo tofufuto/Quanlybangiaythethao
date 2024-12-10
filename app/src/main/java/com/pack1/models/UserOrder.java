@@ -12,7 +12,17 @@ public class UserOrder {
     private int userId;
     private int productId;
 
-    public UserOrder( int quantity, float totalPrice, String status, int productId,int userId) {
+    public String getShipAdress() {
+        return shipAdress;
+    }
+
+    public void setShipAdress(String shipAdress) {
+        this.shipAdress = shipAdress;
+    }
+
+    private String shipAdress;
+
+    public UserOrder( int quantity, float totalPrice, String status, int productId,int userId,String shipAdress) {
         this.orderId = orderId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
@@ -20,13 +30,15 @@ public class UserOrder {
         this.userId = userId;
         this.productId = productId;
         this.dateOrder = new Date();
-    } public UserOrder( int quantity, float totalPrice, String status, int productId,int userId,int orderId) {
+        this.shipAdress = shipAdress;
+    } public UserOrder( int quantity, float totalPrice, String status, int productId,int userId,String shipAdress,int orderId) {
         this.orderId = orderId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.status = status;
         this.productId = productId;
         this.dateOrder = new Date();
+        this.shipAdress = shipAdress;
     }
 
     public int getOrderId() {

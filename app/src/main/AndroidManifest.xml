@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Quanlybangiaythethao"
         tools:targetApi="31">
         <activity
+            android:name="com.pack1.customer.ShoppingCartActivity"
+            android:exported="false"/>
+        <activity
             android:name="com.pack1.customer.CustomerProductDetail"
             android:exported="false" />
         <activity
@@ -26,7 +29,7 @@
             android:exported="false" />
         <activity
             android:name="com.pack1.admin.AdminHome"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name="com.pack1.admin.Stats"
             android:exported="false" />

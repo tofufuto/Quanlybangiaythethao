@@ -29,7 +29,7 @@ public class LoginLayout extends AppCompatActivity {
     CheckBox cbPass;
     Button btlogin, btregister;
     SQLiteDatabase db;
-
+    DatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -37,6 +37,11 @@ public class LoginLayout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login_layout);
+
+
+//            this.deleteDatabase("Database.db");// xóa luôn cái database
+//            dbHelper = new DatabaseHelper(this);
+//            db = dbHelper.getWritableDatabase();
 
 
             btlogin = findViewById(R.id.btLogin);
@@ -66,6 +71,7 @@ public class LoginLayout extends AppCompatActivity {
                      {
                          Intent intent = new Intent(getApplicationContext(), AdminHome.class);
                          startActivity(intent);
+                         clearAllInputText();
                          return;
                      }
                      UserDao userDao = new UserDao(getApplicationContext());
@@ -86,11 +92,13 @@ public class LoginLayout extends AppCompatActivity {
                          }catch (Exception e)
                          {
                              e.printStackTrace();
+                             clearAllInputText();
                          }
 
                      } else {
                          Toast.makeText(LoginLayout.this, "Invalid Credentials!", Toast.LENGTH_SHORT).show();
                      }
+                     clearAllInputText();
                  }
              });
 
@@ -108,4 +116,9 @@ public class LoginLayout extends AppCompatActivity {
             });
 
         };
+        private void clearAllInputText()
+        {
+            username.setText("");
+            password.setText("");
+        }
     }

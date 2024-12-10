@@ -48,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "    user_id INTEGER," +
             "    product_id INTEGER," +
             "    dateorder TEXT," +
+            "    ship_address TEXT,"+
             "    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE SET NULL," +
             "    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE SET NULL" +
             ")";
