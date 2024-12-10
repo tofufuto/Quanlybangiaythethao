@@ -288,7 +288,7 @@ public class RegisterLayout extends AppCompatActivity {
                 RegisterLayout.this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     // Đặt ngày đã chọn vào EditText
-                    String selectedDate = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
+                    String  selectedDate = "" + selectedDay +"-"+(selectedMonth + 1)+"-"+selectedYear;
                     birthEditText.setText(selectedDate);
                 },
                 year, month, day);

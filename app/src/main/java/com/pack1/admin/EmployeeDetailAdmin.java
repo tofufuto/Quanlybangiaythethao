@@ -1,5 +1,7 @@
 package com.pack1.admin;
 
+import static com.pack1.quanlybangiaythethao.Staticstuffs.DATE_FORMATTER;
+
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -113,7 +115,7 @@ public class EmployeeDetailAdmin extends AppCompatActivity {
                 this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     // Đặt ngày đã chọn vào EditText
-                    selectedDate = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
+                    selectedDate = "" + selectedDay +"-"+(selectedMonth + 1)+"-"+selectedYear;
                     birthPicker.setText(selectedDate);
                 },
                 year, month, day);

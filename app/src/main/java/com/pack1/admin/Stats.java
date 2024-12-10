@@ -37,18 +37,18 @@ public class Stats extends AppCompatActivity {
 
         // Tạo danh sách các BarEntry cho dữ liệu
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(1, 10)); // Tháng 1: 10 triệu
-        barEntries.add(new BarEntry(2, 20)); // Tháng 2: 20 triệu
-        barEntries.add(new BarEntry(3, 30)); // Tháng 3: 30 triệu
-        barEntries.add(new BarEntry(4, 40)); // Tháng 4: 40 triệu
-        barEntries.add(new BarEntry(5, 50)); // Tháng 5: 50 triệu
-        barEntries.add(new BarEntry(6, 60)); // Tháng 6: 60 triệu
-        barEntries.add(new BarEntry(7, 70)); // Tháng 7: 70 triệu
-        barEntries.add(new BarEntry(8, 80)); // Tháng 8: 80 triệu
-        barEntries.add(new BarEntry(9, 90)); // Tháng 9: 90 triệu
-        barEntries.add(new BarEntry(10, 100)); // Tháng 10: 100 triệu
-        barEntries.add(new BarEntry(11, 110)); // Tháng 11: 110 triệu
-        barEntries.add(new BarEntry(12, 120)); // Tháng 12: 120 triệu
+        barEntries.add(new BarEntry(1, 1)); //Tháng và giá trị
+        barEntries.add(new BarEntry(2, 1));
+        barEntries.add(new BarEntry(3, 1));
+        barEntries.add(new BarEntry(4, 1));
+        barEntries.add(new BarEntry(5, 1));
+        barEntries.add(new BarEntry(6, 1));
+        barEntries.add(new BarEntry(7, 1));
+        barEntries.add(new BarEntry(8, 1));
+        barEntries.add(new BarEntry(9, 1));
+        barEntries.add(new BarEntry(10, 1));
+        barEntries.add(new BarEntry(11, 1));
+        barEntries.add(new BarEntry(12, 1));
 
         // Tạo BarDataSet từ dữ liệu
         BarDataSet barDataSet = new BarDataSet(barEntries, "Doanh Thu (Triệu VND)");

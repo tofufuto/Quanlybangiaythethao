@@ -105,7 +105,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
                 this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     // Đặt ngày đã chọn vào EditText
-                    selectedDate = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
+                    selectedDate = "" + selectedDay +"-"+(selectedMonth + 1)+"-"+selectedYear;
                     birthPicker.setText(selectedDate);
                 },
                 year, month, day);
