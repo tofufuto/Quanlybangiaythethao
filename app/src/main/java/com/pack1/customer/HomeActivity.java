@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     Toolbar toolbar;
     int currentUserId;
     ArrayList<Product> productList;
-    TextView currUserIdTextView;
+    //TextView currUserIdTextView;
     GridView productDisplay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

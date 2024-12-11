@@ -2,6 +2,8 @@ package com.pack1.employee;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,7 +17,7 @@ import com.pack1.quanlybangiaythethao.R;
 public class EmployeeHome extends AppCompatActivity {
 
     int currentUserId;
-    TextView currUserIdTextView;
+    Button profileBtn,checkOrderBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +31,29 @@ public class EmployeeHome extends AppCompatActivity {
         try {
             Intent homeActiIntent = this.getIntent();
             currentUserId = Integer.parseInt(homeActiIntent.getStringExtra("currentUserId"));
-            currUserIdTextView = findViewById(R.id.current_user_id_Textview);
-            currUserIdTextView.setText("" + currentUserId);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+
+        profileBtn = findViewById(R.id.profilenhanvien);
+        checkOrderBtn = findViewById(R.id.checkorder);
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),EmployeeProfile.class);
+                intent.putExtra("currentUserId",""+currentUserId);
+                startActivity(intent);
+            }
+        });
+
+        checkOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }
