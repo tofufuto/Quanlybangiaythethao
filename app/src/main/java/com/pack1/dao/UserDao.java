@@ -168,4 +168,13 @@ public class UserDao {
         return role; // Trả về role (null nếu không tìm thấy userId)
     }
 
+    public Date getDateAddedById(int userId)
+    {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select dateadded from User where user_id = ?",new String[]{""+userId});
+        if (cursor.moveToNext())
+            return Staticstuffs.ConvertStringtoDate(cursor.getString(cursor.getColumnIndexOrThrow("dateadded")));
+        return null;
+    }
+
 }
