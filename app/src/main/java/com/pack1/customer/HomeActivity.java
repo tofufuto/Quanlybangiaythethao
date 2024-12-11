@@ -99,7 +99,10 @@ public class HomeActivity extends AppCompatActivity {
 
         profileBtn.setOnClickListener(v -> {
             // Xử lý sự kiện nút Profile
-            Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(),ProfileDetail.class);
+            intent.putExtra("currentUserId",""+currentUserId);
+            startActivity(intent);
         });
     }
 
