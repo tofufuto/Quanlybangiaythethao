@@ -77,28 +77,15 @@ public class RegisterLayout extends AppCompatActivity {
         etEmail = findViewById(R.id.etRegEmail);
         imgAvatar = findViewById(R.id.imgAvatar);
         btChooseImg = findViewById(R.id.btnChooseImage);
+        etRegUserName.requestFocus();
 
 
-        //check password = confirm password
-//       etConfirmPassword.addTextChangedListener(new TextWatcher() {
-//           @Override
-//           public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//               tvConfirm.setText("Chưa khớp");
-//               tvConfirm.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_red_dark));
-//           }
-//
-//           @Override
-//           public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//               if(etRegPassWord.getText().toString().equals(etConfirmPassword.getText().toString()));
-//               tvConfirm.setText("Khớp mật khẩu");
-//               tvConfirm.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_green_dark));
-//           }
-//
-//           @Override
-//           public void afterTextChanged(Editable editable) {
-//
-//           }
-//       });
+        //chan khoang trang
+        BlockSpaceChar.blockSpaces(etRegUserName);
+        BlockSpaceChar.blockSpaces(etRegPassWord);
+        BlockSpaceChar.blockSpaces(etRegFName);
+        BlockSpaceChar.blockSpaces(etRegLName);
+        BlockSpaceChar.blockSpaces(etEmail);
 
         //button back lai giao dien dang nhap
         btBack.setOnClickListener(new View.OnClickListener() {

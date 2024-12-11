@@ -50,6 +50,9 @@ public class LoginLayout extends AppCompatActivity {
             password = findViewById(R.id.etPassword);
             dbHelper = new DatabaseHelper(this);
             //xu ly checkbox
+            username.requestFocus();
+            BlockSpaceChar.blockSpaces(username);
+            BlockSpaceChar.blockSpaces(password);
             cbPass = findViewById(R.id.cbShowPassword);
 
         cbPass.setOnCheckedChangeListener((buttonView, isChecked) -> {
