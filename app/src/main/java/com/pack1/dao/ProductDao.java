@@ -163,4 +163,32 @@ public Product getProductName(String Name)// lấy 1 product ra bằng tên
         int rowDeleted = db.delete("Product",whereClause,whereArgs);
         return rowDeleted;
     }
+
+    public Product getProductById(int productId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Product WHERE product_id = ?", new String[]{String.valueOf(productId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            int quantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));
+            String size = cursor.getString(cursor.getColumnIndexOrThrow("size"));
+            String color = cursor.getString(cursor.getColumnIndexOrThrow("color"));
+            String gender = cursor.getString(cursor.getColumnIndexOrThrow("gender"));
+            float price = cursor.getFloat(cursor.getColumnIndexOrThrow("price"));
+            String brand = cursor.getString(cursor.getColumnIndexOrThrow("brand"));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+            float rating = cursor.getFloat(cursor.getColumnIndexOrThrow("rating"));
+            Bitmap pdImage = Staticstuffs.byteArrayToBitmap(cursor.getBlob(cursor.getColumnIndexOrThrow("pd_image")));
+
+            Product product = new Product(name, quantity, size, color, gender, price, brand, description, rating, pdImage, productId);
+            cursor.close();
+            db.close();
+            return product;
+        }
+
+        cursor.close();
+        db.close();
+        return null;
+    }
+
 }

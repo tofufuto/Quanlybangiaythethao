@@ -154,7 +154,12 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id ==R.id.cartBtn){
             //pass
+            // Khi người dùng nhấn vào nút giỏ hàng, chuyển đến ShoppingCartActivity
+            Intent intent = new Intent(this, ShoppingCartActivity.class);
+            int currentUserId = 1;
+            intent.putExtra("currentUserId", currentUserId); // Truyền currentUserId
+            startActivity(intent); // Bắt đầu Activity mới
         }
-        return false;
+        return false; // Trả về giá trị của phương thức cha
     }
 }

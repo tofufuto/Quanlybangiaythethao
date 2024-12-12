@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.pack1.quanlybangiaythethao"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.pack1.quanlybangiaythethao"

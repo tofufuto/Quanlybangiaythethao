@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.ImageButton;
+
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import android.widget.Toast;
+
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +32,7 @@ import com.pack1.models.ProducImage;
 import com.pack1.models.Product;
 import com.pack1.models.Review;
 import com.pack1.models.ShoppingCart;
+
 import com.pack1.quanlybangiaythethao.R;
 
 import java.util.ArrayList;
@@ -34,14 +41,19 @@ import custom_adapter.ReviewDisplayAdapter;
 
 public class CustomerProductDetail extends AppCompatActivity {
 
+
     int currentUserId,productId;
+
+
     String productName;
     TextView pdName,pdRating,pdGender,pdSize,pdColor,pdDescription,pdBrand,pdPrice;
     LinearLayout linearLayout;
     ListView reviewDisplay;
     ArrayList<ProducImage> producImages;
     Button buyBtn;
+
     ImageButton addToCartBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +74,7 @@ public class CustomerProductDetail extends AppCompatActivity {
         pdSize = findViewById(R.id.size);
         pdColor = findViewById(R.id.color);
         pdDescription = findViewById(R.id.description);
+
         addToCartBtn = findViewById(R.id.addCartBtn);
 
         //lấy currentuserid với productId dc bấm vào
@@ -69,8 +82,11 @@ public class CustomerProductDetail extends AppCompatActivity {
         currentUserId = Integer.parseInt(ProductDetailIntent.getStringExtra("currentUserId"));
         productName = ProductDetailIntent.getStringExtra("productName");
 
+
         ProductDao productDao = new ProductDao(this );
         productId = productDao.getProductIdByName(productName);
+
+
 
         Log.d("MY LOG",productName);
 
@@ -90,6 +106,7 @@ public class CustomerProductDetail extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
+
 
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
