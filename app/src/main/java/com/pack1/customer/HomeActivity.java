@@ -157,6 +157,6 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra("currentUserId", currentUserId); // Truyền currentUserId
             startActivity(intent); // Bắt đầu Activity mới
         }
-        return super.onOptionsItemSelected(item); // Trả về giá trị của phương thức cha
+        return false; // Trả về giá trị của phương thức cha
     }
 }
