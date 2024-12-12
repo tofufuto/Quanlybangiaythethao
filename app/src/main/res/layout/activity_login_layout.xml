@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:stretchColumns="1"
-            android:shrinkColumns="1">>
+            android:shrinkColumns="1">
 
             <!-- Row for Username -->
             <TableRow>
@@ -48,7 +48,8 @@
                     android:hint="Enter your username"
                     android:nextFocusDown="@id/etPassword"
                     android:imeOptions="actionNext"
-                    android:padding="8dp"
+                    android:padding="16dp"
+                    android:layout_margin="8dp"
                     android:textColor="@color/darkgray"/>
             </TableRow>
 
@@ -69,7 +70,8 @@
                     android:nextFocusDown="@id/cbShowPassword"
                     android:imeOptions="actionNext"
                     android:inputType="textPassword"
-                    android:padding="8dp"
+                    android:padding="16dp"
+                    android:layout_margin="8dp"
                     android:textColor="@color/darkgray"/>
             </TableRow>
             <!-- TableRow chứa checkbox   -->

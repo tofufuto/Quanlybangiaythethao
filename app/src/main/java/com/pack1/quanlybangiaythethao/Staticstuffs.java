@@ -24,6 +24,7 @@ public class Staticstuffs {
     public static final String MALE = "Nam";
     public static final String FEMALE = "Nữ";
     public static String DATE_FORMATTER = "dd-MM-yyyy";
+    public static int defaultUserAvatar = R.drawable.user;
 
     public static String ConvertDatetoString(Date date)
     {

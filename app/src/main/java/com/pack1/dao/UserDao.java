@@ -167,5 +167,39 @@ public class UserDao {
         db.close(); // Đóng database
         return role; // Trả về role (null nếu không tìm thấy userId)
     }
+    public String checkReg(String username, String email) {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        String result = "OK"; // Mặc định là không trùng lặp
+
+        try {
+            db = dbHelper.getReadableDatabase();
+
+            // Kiểm tra username có tồn tại
+            String queryUsername = "SELECT user_id FROM User WHERE username = ?";
+            cursor = db.rawQuery(queryUsername, new String[]{username});
+            if (cursor != null && cursor.moveToFirst()) {
+                result = "Username đã tồn tại";
+                return result; // Nếu trùng username, trả về ngay
+            }
+            cursor.close();
+
+            // Kiểm tra email có tồn tại
+            String queryEmail = "SELECT user_id FROM User WHERE gmail = ?";
+            cursor = db.rawQuery(queryEmail, new String[]{email});
+            if (cursor != null && cursor.moveToFirst()) {
+                result = "Email đã được sử dụng";
+                return result; // Nếu trùng email, trả về ngay
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "Lỗi kiểm tra tài khoản"; // Trả về thông báo lỗi nếu xảy ra ngoại lệ
+        } finally {
+            if (cursor != null) cursor.close();
+            if (db != null) db.close();
+        }
+
+        return result; // Trả về "OK" nếu không trùng lặp
+    }
 
 }
