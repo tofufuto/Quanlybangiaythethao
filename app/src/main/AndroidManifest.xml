@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -13,8 +12,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:theme"
         android:theme="@style/Theme.Quanlybangiaythethao"
         tools:targetApi="31">
+        <activity
+            android:name="com.pack1.payment.PaymentLayout"
+            android:exported="false" />
         <activity
             android:name="com.pack1.customer.CustomerProductDetail"
             android:exported="false" />

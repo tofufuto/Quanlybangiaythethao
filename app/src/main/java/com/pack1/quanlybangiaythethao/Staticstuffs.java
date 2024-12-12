@@ -18,6 +18,8 @@ import java.util.Date;
 public class Staticstuffs {
     public static final String ADMIN_USER_NAME = "Admin";
     public static final String ADMIN_PASSWORD = "123";
+    public static final String DEV_USER_NAME = "Dev";
+    public static final String DEV_PASSWORD = "123";
     public static final String NGUOIDUNG = "CUSTOMER";
     public static final String NHANVIEN = "EMPLOYEE";
     public static final String QUANTRI = "ADMIN";

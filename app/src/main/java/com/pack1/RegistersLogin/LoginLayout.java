@@ -19,6 +19,7 @@ import com.pack1.admin.AdminHome;
 import com.pack1.customer.HomeActivity;
 import com.pack1.employee.EmployeeHome;
 import com.pack1.dao.DatabaseHelper;
+import com.pack1.payment.PaymentLayout;
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
 import com.pack1.dao.UserDao;
@@ -93,6 +94,13 @@ public class LoginLayout extends AppCompatActivity {
                      if(taikhoan.equals(Staticstuffs.ADMIN_USER_NAME) && matkhau.equals(Staticstuffs.ADMIN_PASSWORD))
                      {
                          Intent intent = new Intent(getApplicationContext(), AdminHome.class);
+                         startActivity(intent);
+                         clearAllInputText();
+                         return;
+                     }
+                     if(taikhoan.equals(Staticstuffs.DEV_USER_NAME) && matkhau.equals(Staticstuffs.DEV_PASSWORD))
+                     {
+                         Intent intent = new Intent(getApplicationContext(), PaymentLayout.class);
                          startActivity(intent);
                          clearAllInputText();
                          return;
