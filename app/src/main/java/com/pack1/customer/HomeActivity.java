@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.pack1.dao.ProductDao;
 import com.pack1.models.Product;
 import com.pack1.quanlybangiaythethao.R;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
 
 import java.util.ArrayList;
 
@@ -39,6 +41,9 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<Product> productList;
     //TextView currUserIdTextView;
     GridView productDisplay;
+
+    Button allPdBtn,maleBtn,femaleBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +70,11 @@ public class HomeActivity extends AppCompatActivity {
 
         productDisplay = findViewById(R.id.productDisplay);
 
+        allPdBtn = findViewById(R.id.allProductbtn);
+        maleBtn = findViewById(R.id.maleProduct);
+        femaleBtn = findViewById(R.id.femaleProduct);
 
-        loadProductFromDatabase();
+        loadProductFromDatabase(null);
 
         productDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,7 +87,26 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        allPdBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadProductFromDatabase(null);
+            }
+        });
 
+        maleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadProductFromDatabase(Staticstuffs.MALE);
+            }
+        });
+
+        femaleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadProductFromDatabase(Staticstuffs.FEMALE);
+            }
+        });
 
     }
     private void setupBottomToolbar(Toolbar bottomToolbar) {
@@ -106,12 +133,28 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void loadProductFromDatabase() {
-        ProductDao productDao = new ProductDao(this);
-        productList = productDao.getAllProduct();
+    private void loadProductFromDatabase(String gender) {
+        if(gender == null)
+        {
+            ProductDao productDao = new ProductDao(this);
+            productList = productDao.getAllProduct();
 
-        ProductGridViewAdapter adapter = new ProductGridViewAdapter(this,productList, this.getLayoutInflater());
-        productDisplay.setAdapter(adapter);
+            ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, this.getLayoutInflater());
+            productDisplay.setAdapter(adapter);
+        }else if (gender.equals(Staticstuffs.MALE))
+        {
+            ProductDao productDao = new ProductDao(getApplicationContext());
+            productList = productDao.getProductsByGender(Staticstuffs.MALE);
+
+            ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, this.getLayoutInflater());
+            productDisplay.setAdapter(adapter);
+        } else if (gender.equals(Staticstuffs.FEMALE)) {
+            ProductDao productDao = new ProductDao(getApplicationContext());
+            productList = productDao.getProductsByGender(Staticstuffs.FEMALE);
+
+            ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, this.getLayoutInflater());
+            productDisplay.setAdapter(adapter);
+        }
     }
     private void loadProductFromDatabaseWithKW(String kw)
     {
@@ -142,7 +185,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.isEmpty())
-                    loadProductFromDatabase();
+                    loadProductFromDatabase(null);
                 return false;
             }
         });

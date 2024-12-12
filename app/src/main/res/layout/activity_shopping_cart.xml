@@ -33,6 +33,13 @@
         android:padding="16dp" />
 
     <!-- GridView hiển thị các sản phẩm trong giỏ hàng -->
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkgray"
+        android:text="Ấn giữ một sản phẩm để xóa" />
+
     <GridView
         android:id="@+id/gridViewCart"
         android:layout_width="match_parent"

@@ -57,4 +57,22 @@ public class ShoppingCartDao {
         return productIds;
 
     }
+    public int getShoppingCartID(int productID) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "SELECT cart_id FROM Shopping_cart WHERE product_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(productID)});
+        int shoppingCartID = -1;
+        if (cursor.moveToFirst()) {
+            shoppingCartID = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return shoppingCartID;
+    }
+    public void deleteCart(int cartID) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "DELETE FROM Shopping_cart WHERE cart_id = ?";
+        db.execSQL(query, new String[]{String.valueOf(cartID)});
+        db.close();
+    }
 }

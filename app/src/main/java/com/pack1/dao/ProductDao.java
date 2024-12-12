@@ -190,5 +190,27 @@ public Product getProductName(String Name)// lấy 1 product ra bằng tên
         db.close();
         return null;
     }
+    public ArrayList<Product> getProductsByGender(String gender) {
+        ArrayList<Product> products = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "SELECT * FROM Product WHERE gender = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{gender});
+        while (cursor.moveToNext()) {
+            int productId = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int quantity = cursor.getInt(2);
+            String size = cursor.getString(3);
+            String color = cursor.getString(4);
+            byte[] pdImageBytes = cursor.getBlob(10);
+            Bitmap pdImage = Staticstuffs.byteArrayToBitmap (pdImageBytes);
+            float rating = Float.parseFloat(cursor.getString(11));
+            float price = (float) cursor.getDouble(6);
+            Product product = new Product(name, quantity, size, color, gender, price, cursor.getString(7), cursor.getString(8), rating, pdImage, productId);
+            products.add(product);
+        }
+        cursor.close();
+        db.close();
+        return products;
+    }
 
 }
