@@ -2,6 +2,7 @@ package com.pack1.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.pack1.models.ShoppingCart;
@@ -22,5 +23,14 @@ public class ShoppingCartDao {
         long rs = db.insert("Shopping_cart",null,values);
         db.close();
         return rs;
+    }
+    public boolean isShoppingCartExist(ShoppingCart shoppingCart) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String query = "SELECT * FROM  Shopping_cart WHERE user_id = ? AND product_id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(shoppingCart.getUserId()), String.valueOf(shoppingCart.getProductId())});
+        boolean isExist = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return isExist;
     }
 }
