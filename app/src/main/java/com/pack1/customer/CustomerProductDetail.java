@@ -172,7 +172,7 @@ public class CustomerProductDetail extends AppCompatActivity {
             pdColor.setText(product.getColor());
             pdDescription.setText(product.getDescription());
             pdBrand.setText(product.getBrand());
-            pdPrice.setText(""+ product.getPrice() +" VNĐ");
+            pdPrice.setText( String.format("%,d", (int) product.getPrice()) +" VNĐ");
         }
         catch (Exception e)
         {
