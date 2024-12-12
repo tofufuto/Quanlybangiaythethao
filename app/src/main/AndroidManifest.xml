@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quanlybangiaythethao"
+        tools:replace="android:theme"
         tools:targetApi="31">
         <activity
-
+            android:name="com.pack1.employee.EditOrderStatusActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.pack1.employee.OrderListActivity"
+            android:exported="false" />
+        <activity
             android:name="com.pack1.employee.EmployeeProfile"
             android:exported="false" />
         <activity
@@ -27,20 +32,28 @@
             android:exported="false" />
         <activity
             android:name="com.pack1.customer.ShoppingCartActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
+        <activity
+            android:name="com.pack1.payment.PaymentLayout"
+            android:exported="false" />
         <activity
             android:name="com.pack1.customer.CustomerProductDetail"
             android:exported="false" />
         <activity
             android:name="com.pack1.employee.EmployeeHome"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.pack1.customer.HomeActivity"
             android:exported="false" />
         <activity
             android:name="com.pack1.admin.AdminHome"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name="com.pack1.admin.Stats"
             android:exported="false" />

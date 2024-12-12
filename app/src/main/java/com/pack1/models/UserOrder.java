@@ -1,5 +1,7 @@
 package com.pack1.models;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class UserOrder {
@@ -11,6 +13,11 @@ public class UserOrder {
     private Date dateOrder;
     private int userId;
     private int productId;
+
+    private String shipAddress;
+    private String productName;
+    private Bitmap productImage;
+    private String customerName;
 
     public String getShipAdress() {
         return shipAdress;
@@ -39,6 +46,20 @@ public class UserOrder {
         this.productId = productId;
         this.dateOrder = new Date();
         this.shipAdress = shipAdress;
+    }
+    // Constructor đã được cập nhật
+    public UserOrder(int orderId, int quantity, float totalPrice, String status, Date dateOrder, int userId, int productId, String shipAddress, String productName, Bitmap productImage, String customerName) {
+        this.orderId = orderId;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.dateOrder = dateOrder;
+        this.userId = userId;
+        this.productId = productId;
+        this.shipAddress = shipAddress;
+        this.productName = productName;
+        this.productImage = productImage;
+        this.customerName = customerName;
     }
 
     public int getOrderId() {
@@ -77,6 +98,9 @@ public class UserOrder {
         return dateOrder;
     }
 
+    public void setDateOrder(Date dateOrder) {
+        this.dateOrder = dateOrder;
+    }
 
     public int getUserId() {
         return userId;
@@ -92,5 +116,37 @@ public class UserOrder {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public String getShipAddress() {
+        return shipAddress;
+    }
+
+    public void setShipAddress(String shipAddress) {
+        this.shipAddress = shipAddress;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public Bitmap getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(Bitmap productImage) {
+        this.productImage = productImage;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

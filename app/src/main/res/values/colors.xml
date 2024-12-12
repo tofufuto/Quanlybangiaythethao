@@ -5,5 +5,7 @@
     <color name="lightblue">#4A90E2</color>
     <color name="darkgray">#212121</color>
     <color name="slightlydarkerwhite">#f7f7f7</color>
-    <color name="red">#db1d1d</color>
+    <color name="red">#FF0000</color>
+    <color name="colorFocused">#66cccc</color>
+    <color name="colorDefault">#66cc00</color>
 </resources>

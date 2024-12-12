@@ -43,7 +43,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
-                       android:text="Username:"
+                       android:text="Tài Khoản :"
                        android:textColor="@color/darkgray"/>
 
                    <EditText
@@ -51,11 +51,12 @@
                        android:id="@+id/etRegUserName"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
-                       android:hint="Enter your username"
-                       android:focusable="auto"
-                       android:focusableInTouchMode="true"
+                       android:hint="Nhập tài khoản"
                        android:inputType="text"
+                       android:focusable="true"
+                       android:focusableInTouchMode="true"
                        android:nextFocusDown="@id/etRegPassword"
+                       android:imeOptions="actionNext"
                        android:padding="8dp" />
                </TableRow>
 
@@ -66,7 +67,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
-                       android:text="Password:"
+                       android:text="Mật khẩu:"
                        android:textColor="@color/darkgray"/>
 
                    <EditText
@@ -74,7 +75,9 @@
                        android:id="@+id/etRegPassword"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
-                       android:hint="Enter your password"
+                       android:hint="Nhập mật khẩu"
+                       android:nextFocusDown="@id/cbShowPassword"
+                       android:imeOptions="actionNext"
                        android:inputType="textPassword"
                        android:padding="8dp" />
                </TableRow>
@@ -94,7 +97,7 @@
                            android:id="@+id/tvUpperCase"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:text="Contains an uppercase letter"
+                           android:text="Chứa ký tự hoa"
                            android:visibility="gone"
                            android:textColor="@android:color/holo_red_dark" />
 
@@ -102,7 +105,7 @@
                            android:id="@+id/tvNumber"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:text="Contains a number"
+                           android:text="Chứa ký tự số"
                            android:visibility="gone"
                            android:textColor="@android:color/holo_red_dark" />
 
@@ -111,7 +114,7 @@
                            android:layout_width="wrap_content"
                            android:visibility="gone"
                            android:layout_height="wrap_content"
-                           android:text="Contains a special character"
+                           android:text="Chứa ký tự đặc biệt: #@!~%^*..."
                            android:textColor="@android:color/holo_red_dark" />
 
                    </LinearLayout>
@@ -171,16 +174,18 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
-                       android:text="First name:" />
+                       android:text="Tên:" />
 
                    <EditText
-                       android:textColor="@color/darkgray"
                        android:id="@+id/etfname"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
-                       android:hint="Enter your first name !"
+                       android:hint="Nhập tên!"
+                       android:imeOptions="actionNext"
+                       android:inputType="text"
                        android:nextFocusDown="@id/etlname"
-                       android:padding="8dp" />
+                       android:padding="8dp"
+                       android:textColor="@color/darkgray" />
                </TableRow>
                <!-- Row for last name -->
                <TableRow>
@@ -189,18 +194,19 @@
                        android:textColor="@color/darkgray"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:nextFocusDown="@id/etfname"
                        android:padding="8dp"
-                       android:text="Last name:" />
+                       android:text="Họ:" />
 
                    <EditText
-                       android:textColor="@color/darkgray"
                        android:id="@+id/etlname"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
-                       android:hint="Enter your last name !"
-                       android:nextFocusDown="@id/etRegbirth"
-                       android:padding="8dp" />
+                       android:hint="Nhập Họ !"
+                       android:imeOptions="actionNext"
+                       android:inputType="text"
+                       android:nextFocusDown="@id/etRegNumbers"
+                       android:padding="8dp"
+                       android:textColor="@color/darkgray" />
                </TableRow>
                <!-- Row for Numbers -->
                <TableRow>
@@ -210,16 +216,17 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="8dp"
-                       android:text="Numbers:" />
+                       android:text="SĐT:" />
 
                    <EditText
                        android:textColor="@color/darkgray"
                        android:id="@+id/etRegNumbers"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
-                       android:hint="Enter your numbers"
+                       android:hint="Nhập SĐT"
                        android:inputType="number"
-                       android:nextFocusDown="@id/etRegbirth"
+                       android:nextFocusDown="@id/checkbox_male"
+                       android:imeOptions="actionNext"
                        android:padding="8dp" />
                </TableRow>
                <!-- Row for birth  -->
@@ -238,9 +245,8 @@
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
                        android:focusable="false"
-                       android:hint="Click here !"
+                       android:hint="Nhấp để chọn !"
                        android:inputType="none"
-                       android:nextFocusDown="@id/checkbox_male"
                        android:padding="8dp" />
                </TableRow>
 
@@ -265,7 +271,7 @@
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:nextFocusDown="@id/checkbox_female"
-                           android:text="Male"
+                           android:text="Nam"
                            android:checked="true"/>
 
                        <CheckBox
@@ -274,7 +280,7 @@
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:nextFocusDown="@id/etRegEmail"
-                           android:text="Female" />
+                           android:text="Nữ" />
                    </LinearLayout>
                </TableRow>
                <!-- Row for gmail  -->
@@ -292,9 +298,10 @@
                        android:id="@+id/etRegEmail"
                        android:layout_width="match_parent"
                        android:layout_height="50dp"
-                       android:hint="Enter your email !"
+                       android:hint="Nhập Email !"
                        android:inputType="textEmailAddress"
-                       android:nextFocusDown="@id/btRegSumbit"
+                       android:nextFocusDown="@id/btnChooseImage"
+                       android:imeOptions="actionNext"
                        android:padding="8dp" />
                </TableRow>
                <TableLayout
@@ -332,14 +339,20 @@
                            android:layout_marginTop="28dp"
                            android:width="120dp"
                            android:height="50dp"
-                           android:text="Chọn ảnh" />
+                           android:focusable="true"
+                           android:focusableInTouchMode="true"
+                           android:nextFocusDown="@id/btRegSumbit"
+                           android:imeOptions="actionNext"
+                           android:background="@drawable/focus_color"
+                           android:text="Chọn ảnh"
+
+                           />
 
                        <ImageView
                            android:id="@+id/imgAvatar"
                            android:layout_width="100dp"
                            android:layout_height="100dp"
                            android:layout_marginLeft="80dp"
-
                            android:scaleType="centerCrop"
                            android:src="@drawable/user" />
 
@@ -353,12 +366,16 @@
 
                    <Button
                        android:textColor="@color/darkgray"
+                       android:background="@drawable/focus_color"
                        android:id="@+id/btRegSumbit"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_span="2"
                        android:nextFocusDown="@id/btBack"
                        android:padding="8dp"
+                       android:focusable="true"
+                       android:focusableInTouchMode="true"
+                       android:layout_margin="10dp"
                        android:text="Đăng Ký" />
                </TableRow>
 
@@ -366,12 +383,16 @@
 
                    <Button
                        android:textColor="@color/darkgray"
+                       android:background="@drawable/focus_color"
                        android:id="@+id/btBack"
+                       android:focusable="true"
+                       android:focusableInTouchMode="true"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_span="2"
                        android:padding="8dp"
-                       android:text="Back" />
+                       android:layout_margin="10dp"
+                       android:text="Quay lại" />
                </TableRow>
 
            </TableLayout>

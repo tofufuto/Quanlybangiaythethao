@@ -2,9 +2,11 @@ package com.pack1.employee;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +54,9 @@ public class EmployeeHome extends AppCompatActivity {
         checkOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(EmployeeHome.this, OrderListActivity.class);
+                intent.putExtra("currentUserId", currentUserId);  // Truyền currentUserId đúng
+                startActivity(intent);
 
             }
         });
