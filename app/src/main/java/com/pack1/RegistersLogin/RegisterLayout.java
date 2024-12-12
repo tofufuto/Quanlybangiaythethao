@@ -1,15 +1,21 @@
 package com.pack1.RegistersLogin;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -33,21 +39,28 @@ import com.pack1.dao.UserDao;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class RegisterLayout extends AppCompatActivity {
-    EditText birthEditText, etRegPassWord, etEmail, etRegUserName, etRegFName, etRegLName,etConfirmPassword, etRegNumbers;
+    EditText birthEditText, etRegPassWord, etEmail, etRegUserName, etRegFName, etRegLName, etRegNumbers;
     Button btBack, btRegSubmit, btChooseImg;
     ImageView imgAvatar;
     Date date;
     CheckBox maleCheckBox, femaleCheckBox;
     TableRow tableRow;
-    TextView tvUpperCase, tvSpecialChar, tvNumber,tvEmail,tvConfirm;
-    boolean flagPassword,flagEmail, flagConfirmPassword;
+    TextView tvUpperCase, tvSpecialChar, tvNumber, tvEmail;
+    AtomicBoolean isFlagPassword = new AtomicBoolean(false);
+    AtomicBoolean isFlagNumbers = new AtomicBoolean(false);
+
+    AtomicBoolean isFlagEmail = new AtomicBoolean(false);
     DatabaseHelper dbHelper;
     Bitmap bitmapAvatar;
     static final int PICK_IMAGE_REQUEST = 1;
+    private Uri selectedImageUri = null;
+    private String[] fieldNames;
     private ActivityResultLauncher<Intent> galleryLauncher;
 
 
@@ -77,34 +90,42 @@ public class RegisterLayout extends AppCompatActivity {
         etEmail = findViewById(R.id.etRegEmail);
         imgAvatar = findViewById(R.id.imgAvatar);
         btChooseImg = findViewById(R.id.btnChooseImage);
+        etRegUserName.requestFocus();
 
 
-        //check password = confirm password
-//       etConfirmPassword.addTextChangedListener(new TextWatcher() {
-//           @Override
-//           public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//               tvConfirm.setText("Chưa khớp");
-//               tvConfirm.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_red_dark));
-//           }
-//
-//           @Override
-//           public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//               if(etRegPassWord.getText().toString().equals(etConfirmPassword.getText().toString()));
-//               tvConfirm.setText("Khớp mật khẩu");
-//               tvConfirm.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_green_dark));
-//           }
-//
-//           @Override
-//           public void afterTextChanged(Editable editable) {
-//
-//           }
-//       });
+        //chan khoang trang
+        ConfigInput.blockSpaces(etRegUserName);
+        ConfigInput.blockSpaces(etRegPassWord);
+        ConfigInput.blockSpaces(etRegFName);
+        ConfigInput.blockSpaces(etRegLName);
+        ConfigInput.blockSpaces(etEmail);
+
+        // chan so cho fname va lname
+        ConfigInput.blockNumbers(etRegFName);
+        ConfigInput.blockNumbers(etRegLName);
+        //gioi han sdt
+        ConfigInput.limitNumbers(etRegNumbers, isFlagNumbers, getApplicationContext());
 
         //button back lai giao dien dang nhap
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        //enter button login
+        etEmail.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        // Giả sử bạn muốn thực hiện đăng nhập khi Enter được nhấn
+                        btRegSubmit.performClick();  // Giả lập việc nhấn nút Đăng Nhập
+                        return true;  // Đánh dấu rằng sự kiện đã được xử lý
+                    }
+                }
+                return false;  // Nếu không phải phím Enter thì không làm gì
             }
         });
 
@@ -135,52 +156,8 @@ public class RegisterLayout extends AppCompatActivity {
         });
 
         //check password
-        etRegPassWord.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    flagPassword = false;
-            }
+        ConfigInput.isValidPassword(etRegPassWord, isFlagPassword, tvUpperCase, tvNumber, tvSpecialChar, getApplicationContext());
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String password = charSequence.toString();
-                if (password.isEmpty()) {
-                    tvUpperCase.setVisibility(View.GONE);
-                    tvNumber.setVisibility(View.GONE);
-                    tvSpecialChar.setVisibility(View.GONE);
-                }
-                if (!password.isEmpty()) {
-                    tvUpperCase.setVisibility(View.VISIBLE);
-                    tvNumber.setVisibility(View.VISIBLE);
-                    tvSpecialChar.setVisibility(View.VISIBLE);
-                }
-                    // Check for uppercase letter
-                    if (password.matches(".*[A-Z].*")) {
-                        tvUpperCase.setTextColor(ContextCompat.getColor(getApplicationContext(),android.R.color.holo_green_dark));
-                    } else {
-                        tvUpperCase.setTextColor(ContextCompat.getColor(getApplicationContext(),android.R.color.holo_red_dark));
-                    }
-
-                    // Check for number
-                    if (password.matches(".*\\d.*")) {
-                        tvNumber.setTextColor(ContextCompat.getColor(getApplicationContext(),android.R.color.holo_green_dark));
-                    } else {
-                        tvNumber.setTextColor(ContextCompat.getColor(getApplicationContext(),android.R.color.holo_red_dark));
-                    }
-
-                    // Check for special character
-                    if (password.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
-                        tvSpecialChar.setTextColor(ContextCompat.getColor(getApplicationContext(),android.R.color.holo_green_dark));
-                    } else {
-                        tvSpecialChar.setTextColor(ContextCompat.getColor(getApplicationContext(),android.R.color.holo_red_dark));
-                    }
-                }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                flagPassword = true;
-            }
-        });
 
         //check emails
         etEmail.addTextChangedListener(new TextWatcher() {
@@ -192,17 +169,16 @@ public class RegisterLayout extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String e = charSequence.toString().trim();
-                if(!e.isEmpty()){
+                if (!e.isEmpty()) {
                     tvEmail.setVisibility(View.VISIBLE);
-                }
-                else {
+                } else {
                     tvEmail.setVisibility(View.GONE);
                 }
-                if(!isValidEmail(e)){
+                if (!isValidEmail(e)) {
                     tvEmail.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_red_dark));
-                }
-                else {
+                } else {
                     tvEmail.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_green_dark));
+                    isFlagEmail.set(true);
                 }
 
 
@@ -230,38 +206,86 @@ public class RegisterLayout extends AppCompatActivity {
         //xu ly nut dang ky
         btRegSubmit.setOnClickListener(view -> {
 
-        try{
+
             String tk = etRegUserName.getText().toString();
             String mk = etRegPassWord.getText().toString();
             String fn = etRegFName.getText().toString();
             String ln = etRegLName.getText().toString();
             date = Staticstuffs.ConvertStringtoDate(birthEditText.getText().toString());
+            String ngaysinh = birthEditText.getText().toString();
             String email = etEmail.getText().toString();
             String role = Staticstuffs.NGUOIDUNG;
             String sdt = etRegNumbers.getText().toString();
-            String gt = maleCheckBox.isChecked()?Staticstuffs.MALE:Staticstuffs.FEMALE;
+            String gt = maleCheckBox.isChecked() ? Staticstuffs.MALE : Staticstuffs.FEMALE;
             Bitmap avt = bitmapAvatar;
             UserDao userDao = new UserDao(this);
-            User u = new User(tk,mk,fn,ln,date,role,gt,sdt,email,avt);
+            EditText [] editTexts ={etRegUserName,etRegPassWord,etRegFName,etRegLName,birthEditText,
+                    etRegNumbers, etEmail };
+            fieldNames = new String[]{
+                    "Tài Khoản",
+                    "Mật khẩu",
+                    "Tên",
+                    "Họ",
+                    "SĐT",
+                    "Ngày Sinh",
+                    "Email",
+            };
 
-            int rs =(int)userDao.addUser(u);
-            if( rs != -1)
-                onBackPressed();
-        }catch (Exception ex){
-            Toast.makeText(this,"Loi",Toast.LENGTH_SHORT).show();
-        }
+            boolean allFieldsFilled = true;
+            // kiem tra xem du lieu nhap vao co null khong
+            String[] strings = {tk, mk, fn,ln,ngaysinh,email,sdt,gt};
+            boolean allNonNull = Arrays.stream(strings).allMatch(s -> s != null && !s.isEmpty());
+            if(allNonNull){
+                //check tk va email trong db
+                String checkResult = userDao.checkReg(tk, email);
+                if (!"OK".equals(checkResult)) {
+                    Toast.makeText(this, checkResult, Toast.LENGTH_SHORT).show(); // Hiển thị thông báo lỗi
+                } else {
+                    if(isFlagPassword.get()&&isFlagNumbers.get()) {
+                        User u = new User(tk, mk, fn, ln, date, role, gt, sdt, email, avt);
+                        int rs = (int) userDao.addUser(u);
+                           Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegisterLayout.this, LoginLayout.class);
+                        startActivity(intent);
+
+                    }
+                    else {
+                        if(isFlagPassword.get()==false)
+                            Toast.makeText(this, "Mật khẩu chưa hợp lệ!", Toast.LENGTH_SHORT).show();
+                        if(isFlagNumbers.get()==false)
+                            Toast.makeText(this, "SĐT chưa hợp lệ!", Toast.LENGTH_SHORT).show();
+                        if(isFlagEmail.get()==false)
+                            Toast.makeText(this, "Email chưa hợp lệ!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            else{
+                for (int i = 0; i < editTexts.length; i++) {
+                    EditText editText = editTexts[i];
+                    String input = editText.getText().toString().trim();
+                    if (TextUtils.isEmpty(input)) {
+                        // Nếu ô trống, focus vào ô đó và hiển thị thông báo
+                        editText.requestFocus();
+                        Toast.makeText(this, "Vui lòng nhập vào ô " + fieldNames[i], Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
+                }
+
+            }
 
         });
 
 
         //chon hinh anh avatar
-            btChooseImg.setOnClickListener(view -> openGallery());
+        btChooseImg.setOnClickListener(view -> openGallery());
 
     }
 
     @SuppressWarnings("deprecation")
     private void openGallery()// lấy ảnh đại diện cho product
     {
+        imgAvatar.setImageResource(R.drawable.user); //avt mac dinh
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
@@ -278,6 +302,14 @@ public class RegisterLayout extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(selectedImageUri==null){
+            imgAvatar.setImageResource(R.drawable.user);
+        }
+    }
+
     // Hien ra lịch chọn cho birth
     private void showDatePicker() {
         final Calendar calendar = Calendar.getInstance();
@@ -288,7 +320,7 @@ public class RegisterLayout extends AppCompatActivity {
                 RegisterLayout.this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     // Đặt ngày đã chọn vào EditText
-                    String  selectedDate = "" + selectedDay +"-"+(selectedMonth + 1)+"-"+selectedYear;
+                    String selectedDate = "" + selectedDay + "-" + (selectedMonth + 1) + "-" + selectedYear;
                     birthEditText.setText(selectedDate);
                 },
                 year, month, day);
@@ -297,9 +329,26 @@ public class RegisterLayout extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
+
     private boolean isValidEmail(String email) {
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.com$";
         return email.matches(emailPattern);
+    }
+
+    public class UsernameInputFilter implements InputFilter {
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            // Chỉ cho phép các ký tự không dấu và không phải ký tự đặc biệt
+            String blockCharacterSet = "[^a-zA-Z0-9]"; // Cho phép chỉ chữ và số
+
+            for (int i = start; i < end; i++) {
+                if (source.subSequence(i, i + 1).toString().matches(blockCharacterSet)) {
+                    return ""; // Chặn ký tự không hợp lệ
+                }
+            }
+            return null; // Ký tự hợp lệ
+        }
     }
 
 }

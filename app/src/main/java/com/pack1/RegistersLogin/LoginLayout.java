@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,6 +19,7 @@ import com.pack1.admin.AdminHome;
 import com.pack1.customer.HomeActivity;
 import com.pack1.employee.EmployeeHome;
 import com.pack1.dao.DatabaseHelper;
+import com.pack1.payment.PaymentLayout;
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
 import com.pack1.dao.UserDao;
@@ -39,9 +41,13 @@ public class LoginLayout extends AppCompatActivity {
         setContentView(R.layout.activity_login_layout);
 
 
+
+
+
 //            this.deleteDatabase("Database.db");// xóa luôn cái database
 //            dbHelper = new DatabaseHelper(this);
 //            db = dbHelper.getWritableDatabase();
+
 
 
             btlogin = findViewById(R.id.btLogin);
@@ -50,7 +56,25 @@ public class LoginLayout extends AppCompatActivity {
             password = findViewById(R.id.etPassword);
             dbHelper = new DatabaseHelper(this);
             //xu ly checkbox
+            username.requestFocus();
+            ConfigInput.blockSpaces(username);
+            ConfigInput.blockSpaces(password);
             cbPass = findViewById(R.id.cbShowPassword);
+
+        password.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        // Giả sử bạn muốn thực hiện đăng nhập khi Enter được nhấn
+                        btlogin.performClick();  // Giả lập việc nhấn nút Đăng Nhập
+                        return true;  // Đánh dấu rằng sự kiện đã được xử lý
+                    }
+                }
+                return false;  // Nếu không phải phím Enter thì không làm gì
+            }
+        });
+
 
         cbPass.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -70,6 +94,13 @@ public class LoginLayout extends AppCompatActivity {
                      if(taikhoan.equals(Staticstuffs.ADMIN_USER_NAME) && matkhau.equals(Staticstuffs.ADMIN_PASSWORD))
                      {
                          Intent intent = new Intent(getApplicationContext(), AdminHome.class);
+                         startActivity(intent);
+                         clearAllInputText();
+                         return;
+                     }
+                     if(taikhoan.equals(Staticstuffs.DEV_USER_NAME) && matkhau.equals(Staticstuffs.DEV_PASSWORD))
+                     {
+                         Intent intent = new Intent(getApplicationContext(), PaymentLayout.class);
                          startActivity(intent);
                          clearAllInputText();
                          return;
@@ -102,9 +133,6 @@ public class LoginLayout extends AppCompatActivity {
                  }
              });
 
-
-
-
             // xử lý nút register
             btregister.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,9 +144,11 @@ public class LoginLayout extends AppCompatActivity {
             });
 
         };
+
         private void clearAllInputText()
         {
             username.setText("");
             password.setText("");
         }
+
     }
