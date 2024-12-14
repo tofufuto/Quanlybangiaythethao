@@ -51,5 +51,27 @@ public class ReviewDao {
         }
         return reviews;
     }
+    public boolean hasRated(int userId, int productId) {
+        SQLiteDatabase db = dbhelper.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            // Truy vấn kiểm tra sự tồn tại của đánh giá
+            String query = "SELECT COUNT(*) FROM Review WHERE user_id = ? AND product_id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(userId), String.valueOf(productId)});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int count = cursor.getInt(0); // Lấy số lượng dòng
+                return count > 0; // Trả về true nếu có ít nhất một đánh giá
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return false; // Mặc định trả về false nếu không tìm thấy
+    }
 
 }
