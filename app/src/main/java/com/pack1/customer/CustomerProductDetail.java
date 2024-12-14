@@ -6,12 +6,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import android.widget.Toast;
@@ -28,13 +30,16 @@ import com.pack1.dao.ProductDao;
 import com.pack1.dao.ProductImageDao;
 import com.pack1.dao.ReviewDao;
 import com.pack1.dao.ShoppingCartDao;
+import com.pack1.dao.UserOrderDao;
 import com.pack1.models.ProducImage;
 import com.pack1.models.Product;
 import com.pack1.models.Review;
 import com.pack1.models.ShoppingCart;
 
+import com.pack1.models.UserOrder;
 import com.pack1.quanlybangiaythethao.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import custom_adapter.ReviewDisplayAdapter;
@@ -51,6 +56,9 @@ public class CustomerProductDetail extends AppCompatActivity {
     ListView reviewDisplay;
     ArrayList<ProducImage> producImages;
     Button buyBtn;
+    Button submitReview;
+    EditText edtReview;
+    RadioButton r1,r2,r3,r4,r5;
 
     ImageButton addToCartBtn;
 
@@ -77,6 +85,15 @@ public class CustomerProductDetail extends AppCompatActivity {
 
         addToCartBtn = findViewById(R.id.addCartBtn);
 
+        r1 = findViewById(R.id.radioButton);
+        r2 = findViewById(R.id.radioButton2);
+        r3 = findViewById(R.id.radioButton3);
+        r4 = findViewById(R.id.radioButton4);
+        r5 = findViewById(R.id.radioButton5);
+
+        edtReview = findViewById(R.id.editTexReview);
+        submitReview = findViewById(R.id.submitRvBtn);
+
         //lấy currentuserid với productId dc bấm vào
         Intent ProductDetailIntent = this.getIntent();
         currentUserId = Integer.parseInt(ProductDetailIntent.getStringExtra("currentUserId"));
@@ -96,6 +113,7 @@ public class CustomerProductDetail extends AppCompatActivity {
         loadProductImages();
         loadProduct();
         loadReviews();
+        checkIfCanReview();
 
         buyBtn.setOnClickListener(new View.OnClickListener() {// nút mua cái là cái này thế acti m làm vào activity_mua_và_thanh_toán
             @Override
@@ -106,6 +124,7 @@ public class CustomerProductDetail extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
+
 
 
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +144,54 @@ public class CustomerProductDetail extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Lỗi thêm thất bại",Toast.LENGTH_SHORT).show();
             }
         });
+
+        submitReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitReview();
+                checkIfCanReview();
+                loadProduct();
+            }
+        });
+    }
+
+    private void submitReview()
+    {
+        float rating=0;
+        if(r1.isChecked())
+            rating = 1;
+        if(r2.isChecked())
+            rating = 2;
+        if(r3.isChecked())
+            rating = 3;
+        if(r4.isChecked())
+            rating = 4;
+        if(r5.isChecked())
+            rating = 5;
+        Review review = new Review(edtReview.getText().toString(),rating,productId,currentUserId);
+        ReviewDao reviewDao = new ReviewDao(this);
+        reviewDao.addReview(review);
+        ProductDao productDao = new ProductDao(this);
+        productDao.updateProductRating(productId,ratingCalculator(reviewDao.getAllReviewByProuctId(productId)));
+    }
+
+    private void checkIfCanReview()
+    {
+        ReviewDao reviewDao = new ReviewDao(this);
+        UserOrderDao userOrder = new UserOrderDao(this);
+        if(!reviewDao.hasRated(currentUserId,productId) && userOrder.isOrderExist(currentUserId,productId))//chưa rate và đã mua
+        {
+            // ko làm j
+        }
+        else{
+            edtReview.setEnabled(false);
+            submitReview.setEnabled(false);
+            r1.setEnabled(false);
+            r2.setEnabled(false);
+            r3.setEnabled(false);
+            r4.setEnabled(false);
+            r5.setEnabled(false);
+        }
     }
 
     private void loadProductImages() {
@@ -166,7 +233,11 @@ public class CustomerProductDetail extends AppCompatActivity {
             ProductDao productDao = new ProductDao(this);
             Product product = productDao.getProductName(productName);
             pdName.setText(product.getName());
-            pdRating.setText("" + ratingCalculator(reviewDao.getAllReviewByProuctId(productDao.getProductIdByName(productName))));
+            //pdRating.setText("" + ratingCalculator(reviewDao.getAllReviewByProuctId(productDao.getProductIdByName(productName))));
+
+            DecimalFormat decimalFormat = new DecimalFormat("0.0");
+
+            pdRating.setText(""+decimalFormat.format( product.getRating()));
             pdGender.setText(product.getGender());
             pdSize.setText(product.getSize());
             pdColor.setText(product.getColor());

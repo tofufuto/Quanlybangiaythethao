@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity {
 
         homeBtn.setOnClickListener(v -> {
             // Xử lý sự kiện nút Home
-            Toast.makeText(this, "Home Clicked", Toast.LENGTH_SHORT).show();
+            loadProductFromDatabase(null);
         });
 
         orderBtn.setOnClickListener(v -> {

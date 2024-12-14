@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.pack1.models.Product;
 import com.pack1.quanlybangiaythethao.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -53,8 +54,10 @@ public class ProductGridViewAdapter extends BaseAdapter {
         TextView textViewName = view.findViewById(R.id.pname);
         textViewName.setText(productList.get(i).getName());
 
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+
         TextView textViewRating = view.findViewById(R.id.prating);
-        textViewRating.setText(""+productList.get(i).getRating());
+        textViewRating.setText(""+decimalFormat.format(productList.get(i).getRating()));
 
         TextView textViewPrice = view.findViewById(R.id.pprice);
         textViewPrice.setText(String.format("%,d", (int) productList.get(i).getPrice()) +" VNĐ");

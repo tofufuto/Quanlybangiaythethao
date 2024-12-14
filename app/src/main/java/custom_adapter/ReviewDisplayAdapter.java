@@ -12,6 +12,7 @@ import com.pack1.quanlybangiaythethao.R;
 import com.pack1.models.Review;
 import com.pack1.dao.UserDao;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ReviewDisplayAdapter extends BaseAdapter {
@@ -59,7 +60,10 @@ public class ReviewDisplayAdapter extends BaseAdapter {
         else
             ava.setImageResource(R.drawable.ic_launcher_background);
         TextView rating = view.findViewById(R.id.rating);
-        rating.setText(""+reviews.get(i).getRating());
+
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+
+        rating.setText(""+decimalFormat.format( reviews.get(i).getRating()));
         return view;
     }
 }

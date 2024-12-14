@@ -212,5 +212,20 @@ public Product getProductName(String Name)// lấy 1 product ra bằng tên
         db.close();
         return products;
     }
+    public boolean updateProductRating(int productId, float newRating) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase(); // Mở cơ sở dữ liệu để ghi
+        ContentValues values = new ContentValues();
+        values.put("rating", String.valueOf(newRating)); // Chuyển rating thành chuỗi
+
+        // Cập nhật dòng dữ liệu có `product_id` tương ứng
+        int rowsAffected = db.update("Product", values, "product_id = ?", new String[]{String.valueOf(productId)});
+
+        // Đóng cơ sở dữ liệu sau khi thực hiện xong
+        db.close();
+
+        // Trả về true nếu cập nhật thành công (có ít nhất 1 dòng bị ảnh hưởng)
+        return rowsAffected > 0;
+    }
+
 
 }
