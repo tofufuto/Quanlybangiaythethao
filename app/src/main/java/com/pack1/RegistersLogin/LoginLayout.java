@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.pack1.admin.AdminHome;
 import com.pack1.customer.HomeActivity;
+import com.pack1.dao.UserOrderDao;
 import com.pack1.employee.EmployeeHome;
 import com.pack1.dao.DatabaseHelper;
+import com.pack1.models.UserOrder;
 import com.pack1.payment.PaymentLayout;
 import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
@@ -48,7 +51,11 @@ public class LoginLayout extends AppCompatActivity {
 //            dbHelper = new DatabaseHelper(this);
 //            db = dbHelper.getWritableDatabase();
 
-
+        UserOrder userOrder = new UserOrder(2,1000000f,"Đang xử lý",1,1,"hell");
+        Log.d("MY LOG",""+userOrder.getStatus() );
+        UserOrderDao userOrderDao = new UserOrderDao(this);
+        long rs = userOrderDao.addUserOrder(userOrder);
+        Log.d("MY LOG",""+rs);
 
             btlogin = findViewById(R.id.btLogin);
             btregister = findViewById(R.id.btRegister);
