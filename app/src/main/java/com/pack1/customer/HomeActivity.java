@@ -219,7 +219,6 @@ public class HomeActivity extends AppCompatActivity {
             //pass
             // Khi người dùng nhấn vào nút giỏ hàng, chuyển đến ShoppingCartActivity
             Intent intent = new Intent(this, ShoppingCartActivity.class);
-            int currentUserId = 1;
             intent.putExtra("currentUserId", currentUserId); // Truyền currentUserId
             startActivity(intent); // Bắt đầu Activity mới
         }

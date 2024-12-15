@@ -14,6 +14,12 @@
         android:orientation="vertical"
         android:layout_marginTop="40dp">
 
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="match_parent"
+            android:layout_height="287dp"
+            app:srcCompat="@drawable/logo" />
+
         <TextView
             android:id="@+id/viewDangNhap"
             android:layout_width="match_parent"

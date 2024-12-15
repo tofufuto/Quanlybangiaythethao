@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -45,6 +46,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             finish(); // Nếu không hợp lệ, đóng Activity này
             return;
         }
+        Log.d("CURRENT USER ID SHOPPING CART",""+currentUserId);
 
         // Khởi tạo ShoppingCartDao để truy xuất thông tin giỏ hàng
         shoppingCartDao = new ShoppingCartDao(this);
@@ -66,7 +68,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         }
 
         // Tạo và thiết lập Adapter cho GridView
-        ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, getLayoutInflater());
+        ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, this.getLayoutInflater());
         gridView.setAdapter(adapter);
 
         // Xử lý sự kiện khi người dùng nhấn vào một sản phẩm trong giỏ hàng
