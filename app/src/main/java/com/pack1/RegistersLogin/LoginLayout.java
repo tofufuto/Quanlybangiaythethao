@@ -1,6 +1,7 @@
 package com.pack1.RegistersLogin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -44,18 +45,27 @@ public class LoginLayout extends AppCompatActivity {
         setContentView(R.layout.activity_login_layout);
 
 
+        SharedPreferences sharedPreferences = getSharedPreferences("AUTHORITY", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if(sharedPreferences.getBoolean(Staticstuffs.SP_IS_SIGNIN,false))
+        {
+            if(sharedPreferences.getString(Staticstuffs.SP_ROLE,"NAH").equals( Staticstuffs.NGUOIDUNG))
+            {
+                Intent intent = new Intent(LoginLayout.this, HomeActivity.class);
+                intent.putExtra("currentUserId", "" + sharedPreferences.getInt(Staticstuffs.SP_CURRENT_USER_ID,-1));
+                startActivity(intent);
+            }
+            else if(sharedPreferences.getString(Staticstuffs.SP_ROLE,"NAH").equals( Staticstuffs.NHANVIEN)){
+                Intent intent = new Intent(LoginLayout.this, EmployeeHome.class);
+                intent.putExtra("currentUserId", "" + sharedPreferences.getInt(Staticstuffs.SP_CURRENT_USER_ID,-1));
+                startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent(LoginLayout.this, AdminHome.class);
+                startActivity(intent);
+            }
+        }
 
-
-
-//            this.deleteDatabase("Database.db");// xóa luôn cái database
-//            dbHelper = new DatabaseHelper(this);
-//            db = dbHelper.getWritableDatabase();
-
-        UserOrder userOrder = new UserOrder(2,1000000f,"Đang xử lý",1,1,"hell");
-        Log.d("MY LOG",""+userOrder.getStatus() );
-        UserOrderDao userOrderDao = new UserOrderDao(this);
-        long rs = userOrderDao.addUserOrder(userOrder);
-        Log.d("MY LOG",""+rs);
 
             btlogin = findViewById(R.id.btLogin);
             btregister = findViewById(R.id.btRegister);
@@ -101,6 +111,9 @@ public class LoginLayout extends AppCompatActivity {
                      if(taikhoan.equals(Staticstuffs.ADMIN_USER_NAME) && matkhau.equals(Staticstuffs.ADMIN_PASSWORD))
                      {
                          Intent intent = new Intent(getApplicationContext(), AdminHome.class);
+                         editor.putString(Staticstuffs.SP_ROLE ,Staticstuffs.QUANTRI);
+                         editor.putBoolean(Staticstuffs.SP_IS_SIGNIN ,true);
+                         editor.commit();
                          startActivity(intent);
                          clearAllInputText();
                          return;
@@ -120,11 +133,19 @@ public class LoginLayout extends AppCompatActivity {
                                  Toast.makeText(LoginLayout.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                                  Intent intent = new Intent(LoginLayout.this, HomeActivity.class);
                                  intent.putExtra("currentUserId", "" + userID);
+                                 editor.putInt(Staticstuffs.SP_CURRENT_USER_ID,userID);
+                                 editor.putString(Staticstuffs.SP_ROLE,Staticstuffs.NGUOIDUNG);
+                                 editor.putBoolean(Staticstuffs.SP_IS_SIGNIN,true);
+                                 editor.commit();
                                  startActivity(intent);
                              } else if (userDao.getUserRole(userID).equals(Staticstuffs.NHANVIEN)) {
                                  Toast.makeText(LoginLayout.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                                  Intent intent = new Intent(LoginLayout.this, EmployeeHome.class);
                                  intent.putExtra("currentUserId", "" + userID);
+                                 editor.putInt(Staticstuffs.SP_CURRENT_USER_ID,userID);
+                                 editor.putString(Staticstuffs.SP_ROLE,Staticstuffs.NHANVIEN);
+                                 editor.putBoolean(Staticstuffs.SP_IS_SIGNIN,true);
+                                 editor.commit();
                                  startActivity(intent);
                              }
                          }catch (Exception e)

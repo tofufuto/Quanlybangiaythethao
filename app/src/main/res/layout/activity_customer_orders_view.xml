@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pack1.customer.CustomerOrdersView"
+    android:background="@color/slightlydarkerwhite"
+    android:orientation="vertical"
+    >
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightblue"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/orderstoolbar"
+        app:title="Các đơn hàng"
+        />
+
+    <TextView
+        android:id="@+id/noorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/darkgray"
+        android:layout_margin="10dp"/>
+
+    <ListView
+        android:id="@+id/orderslist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        />
+
+</LinearLayout>

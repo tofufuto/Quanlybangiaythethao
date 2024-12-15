@@ -23,7 +23,7 @@ public class ReviewDisplayAdapter extends BaseAdapter {
     public ReviewDisplayAdapter(Context context, ArrayList<Review> reviews, LayoutInflater inflater) {
         this.context = context;
         this.reviews = reviews;
-        this.inflater = inflater.from(context);
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override

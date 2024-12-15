@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
 import com.pack1.models.UserOrder;
 
+import java.util.ArrayList;
+
 public class UserOrderDao {
     DatabaseHelper dbHelper;
     public UserOrderDao (Context context)
@@ -51,4 +53,60 @@ public class UserOrderDao {
         }
         return false; // Mặc định trả về false nếu không tìm thấy
     }
+    public ArrayList<UserOrder> getOrdersByUserId(int userId) {
+        ArrayList<UserOrder> orders = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT * FROM User_order WHERE user_id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+            if (cursor.moveToFirst()) {
+                do {
+                    int orderId = cursor.getInt(cursor.getColumnIndexOrThrow("order_id"));
+                    int quantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));
+                    float totalPrice = cursor.getFloat(cursor.getColumnIndexOrThrow("total_price"));
+                    String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
+                    int userID = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
+                    int productId = cursor.getInt(cursor.getColumnIndexOrThrow("product_id"));
+                    String shipAddress = cursor.getString(cursor.getColumnIndexOrThrow("ship_address"));
+
+                    UserOrder order = new UserOrder(quantity, totalPrice, status, productId, userID, shipAddress, orderId);
+                    orders.add(order);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+
+        return orders;
+    }
+    public String getOrderDateById(int orderId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String orderDate = null;
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT dateorder FROM User_order WHERE order_id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(orderId)});
+            if (cursor.moveToFirst()) {
+                orderDate = cursor.getString(cursor.getColumnIndexOrThrow("dateorder"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return orderDate;
+    }
+
+
 }

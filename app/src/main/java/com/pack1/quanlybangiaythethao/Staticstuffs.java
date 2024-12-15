@@ -31,7 +31,9 @@ public class Staticstuffs {
     public static String ORDER_STATUS_CONFIRMED = "Đã xử lý";
     public static String ORDER_STATUS_DELIVERING = "Đang giao";
     public static String ORDER_STATUS_DELIVERD = "Đã giao";
-
+    public static String SP_ROLE = "ROLE";
+    public static String SP_IS_SIGNIN = "isSignIn";
+    public static String SP_CURRENT_USER_ID = "currentUserId";
     public static String ConvertDatetoString(Date date)
     {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMATTER);

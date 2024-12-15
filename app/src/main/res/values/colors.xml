@@ -8,4 +8,5 @@
     <color name="red">#FF0000</color>
     <color name="colorFocused">#66cccc</color>
     <color name="colorDefault">#66cc00</color>
+    <color name="pastelyellow">#fff782</color>
 </resources>

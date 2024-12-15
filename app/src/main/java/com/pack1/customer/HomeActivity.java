@@ -2,6 +2,7 @@ package com.pack1.customer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,11 @@ public class HomeActivity extends AppCompatActivity {
 
     Button allPdBtn,maleBtn,femaleBtn;
 
+    ImageButton logoutBtn;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +79,10 @@ public class HomeActivity extends AppCompatActivity {
         allPdBtn = findViewById(R.id.allProductbtn);
         maleBtn = findViewById(R.id.maleProduct);
         femaleBtn = findViewById(R.id.femaleProduct);
+        logoutBtn = findViewById(R.id.logoutbtn);
+
+        sharedPreferences = getSharedPreferences("AUTHORITY", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         loadProductFromDatabase(null);
 
@@ -107,6 +117,14 @@ public class HomeActivity extends AppCompatActivity {
                 loadProductFromDatabase(Staticstuffs.FEMALE);
             }
         });
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editor.putBoolean(Staticstuffs.SP_IS_SIGNIN,false);
+                editor.commit();
+                onBackPressed();
+            }
+        });
 
     }
     private void setupBottomToolbar(Toolbar bottomToolbar) {
@@ -115,17 +133,19 @@ public class HomeActivity extends AppCompatActivity {
         ImageButton profileBtn = bottomToolbar.findViewById(R.id.profileButton);
 
         homeBtn.setOnClickListener(v -> {
-            // Xử lý sự kiện nút Home
+
             loadProductFromDatabase(null);
         });
 
         orderBtn.setOnClickListener(v -> {
-            // Xử lý sự kiện nút Favorite
-            Toast.makeText(this, "Order clicked", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getApplicationContext(), CustomerOrdersView.class);
+            intent.putExtra("currentUserId",""+currentUserId);
+            startActivity(intent);
         });
 
         profileBtn.setOnClickListener(v -> {
-            // Xử lý sự kiện nút Profile
+
 //            Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(),ProfileDetail.class);
             intent.putExtra("currentUserId",""+currentUserId);
@@ -204,5 +224,13 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent); // Bắt đầu Activity mới
         }
         return false; // Trả về giá trị của phương thức cha
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(sharedPreferences.getBoolean(Staticstuffs.SP_IS_SIGNIN,false)) {
+            finishAffinity(); // Kết thúc toàn bộ activity trong task
+            System.exit(0); // Đảm bảo quá trình bị kill (tùy chọn)
+        }
     }
 }

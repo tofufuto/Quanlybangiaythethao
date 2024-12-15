@@ -1,6 +1,7 @@
 package com.pack1.admin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +17,17 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.pack1.quanlybangiaythethao.R;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
 
 public class AdminHome extends AppCompatActivity {
 
     Toolbar toolbar;
 
     Button checkProductsBtn, employeeManageBtn,statsBtn;
+
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,10 @@ public class AdminHome extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+         sharedPreferences = getSharedPreferences("AUTHORITY", MODE_PRIVATE);
+         editor = sharedPreferences.edit();
+
         toolbar = findViewById(R.id.adminActionBar);
         setSupportActionBar(toolbar);
 
@@ -60,6 +70,7 @@ public class AdminHome extends AppCompatActivity {
         userDao.addUser(user2);*/
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.admin_home_action_bar,menu);
@@ -69,8 +80,19 @@ public class AdminHome extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logoutbtn) {
+            editor.putBoolean(Staticstuffs.SP_IS_SIGNIN,false);
+            editor.commit();
             onBackPressed();
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(sharedPreferences.getBoolean(Staticstuffs.SP_IS_SIGNIN,false)) {
+            finishAffinity(); // Kết thúc toàn bộ activity trong task
+            System.exit(0); // Đảm bảo quá trình bị kill (tùy chọn)
+        }
     }
 }
