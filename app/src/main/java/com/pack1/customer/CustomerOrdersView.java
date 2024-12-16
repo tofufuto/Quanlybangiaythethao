@@ -15,6 +15,8 @@ import com.pack1.dao.UserOrderDao;
 import com.pack1.models.UserOrder;
 import com.pack1.quanlybangiaythethao.R;
 
+import java.util.ArrayList;
+
 import custom_adapter.CustomerOrderAdapter;
 
 public class CustomerOrdersView extends AppCompatActivity {
@@ -39,8 +41,17 @@ public class CustomerOrdersView extends AppCompatActivity {
         Intent intent = this.getIntent();
         currentUserId = Integer.parseInt( intent.getStringExtra("currentUserId"));
 
+
+
         UserOrderDao userOrderDao = new UserOrderDao(this);
-        CustomerOrderAdapter adapter = new CustomerOrderAdapter(this,userOrderDao.getOrdersByUserId(currentUserId),this.getLayoutInflater());
-        ordersDisplay.setAdapter(adapter);
+        ArrayList<UserOrder> userOrdersArrayList = userOrderDao.getOrdersByUserId(currentUserId);
+        if(userOrdersArrayList.isEmpty()){
+            nofiNoOrder.setEnabled(true);
+        }
+        else {
+            CustomerOrderAdapter adapter = new CustomerOrderAdapter(this, userOrdersArrayList, this.getLayoutInflater());
+            ordersDisplay.setAdapter(adapter);
+            nofiNoOrder.setEnabled(false);
+        }
     }
 }

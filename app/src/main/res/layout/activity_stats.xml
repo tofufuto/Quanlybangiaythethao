@@ -9,13 +9,41 @@
     android:orientation="vertical"
     android:background="@color/slightlydarkerwhite"
     >
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/thongketoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/lightblue"
+        app:title="Thống kê"
+        />
+    <TextView
+        android:id="@+id/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/darkgray"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:id="@+id/rev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="15sp"
+        android:textColor="@color/darkgray"
+
+        />
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+        </com.github.mikephil.charting.charts.BarChart>
     </RelativeLayout>
 </LinearLayout>

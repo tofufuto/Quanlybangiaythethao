@@ -1,5 +1,7 @@
 package com.pack1.dao;
 
+import static com.pack1.quanlybangiaythethao.Staticstuffs.ORDER_STATUS_DELIVERD;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +11,7 @@ import com.pack1.quanlybangiaythethao.Staticstuffs;
 import com.pack1.models.UserOrder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserOrderDao {
     DatabaseHelper dbHelper;
@@ -107,6 +110,45 @@ public class UserOrderDao {
 
         return orderDate;
     }
+    public ArrayList<UserOrder> getOrdersByMonthAndYear(int month, int year) {
+        ArrayList<UserOrder> orders = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+        // Câu truy vấn sử dụng substr và điều kiện lọc trạng thái
+        String rawQuery = "SELECT * FROM User_order " +
+                "WHERE substr(dateorder, 4, 2) = ? " +
+                "AND substr(dateorder, 7, 4) = ? " +
+                "AND status = ?";
+
+        // Tham số thay thế
+        String[] whereArgs = {
+                String.format("%02d", month),  // Định dạng tháng thành 2 chữ số (01, 02,..., 12)
+                String.valueOf(year),          // Năm dưới dạng chuỗi
+                ORDER_STATUS_DELIVERD          // Lọc theo trạng thái đơn hàng
+        };
+
+        // Thực thi truy vấn
+        Cursor cursor = db.rawQuery(rawQuery, whereArgs);
+
+        // Xử lý kết quả trả về
+        if (cursor.moveToFirst()) {
+            do {
+                UserOrder order = new UserOrder(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("quantity")),
+                        cursor.getFloat(cursor.getColumnIndexOrThrow("total_price")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("status")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("product_id")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("user_id")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("ship_address")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("order_id"))
+                );
+                orders.add(order);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close(); // Đóng Cursor
+        db.close();     // Đóng cơ sở dữ liệu
+        return orders;
+    }
 
 }

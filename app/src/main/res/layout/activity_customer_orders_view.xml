@@ -22,7 +22,7 @@
         android:id="@+id/noorder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Không có đơn hàng nào"
         android:gravity="center"
         android:textSize="15sp"
         android:textColor="@color/darkgray"
