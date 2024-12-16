@@ -31,6 +31,7 @@ import com.pack1.quanlybangiaythethao.R;
 import com.pack1.quanlybangiaythethao.Staticstuffs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import custom_adapter.ProductGridViewAdapter;
 
@@ -43,12 +44,14 @@ public class HomeActivity extends AppCompatActivity {
     //TextView currUserIdTextView;
     GridView productDisplay;
 
-    Button allPdBtn,maleBtn,femaleBtn;
+    Button allPdBtn,maleBtn,femaleBtn,sortBtn;
 
     ImageButton logoutBtn;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+    boolean isincrease = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,7 @@ public class HomeActivity extends AppCompatActivity {
         maleBtn = findViewById(R.id.maleProduct);
         femaleBtn = findViewById(R.id.femaleProduct);
         logoutBtn = findViewById(R.id.logoutbtn);
+        sortBtn = findViewById(R.id.sortPrice);
 
         sharedPreferences = getSharedPreferences("AUTHORITY", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -125,8 +129,28 @@ public class HomeActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        sortBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isincrease) {
+                    sortProductsByPriceAscending(productList);
+                }
+                else
+                    sortProductsByPriceDescending(productList);
+                isincrease = !isincrease;
+                loadProductToGridView();
+
+            }
+        });
 
     }
+    public void sortProductsByPriceAscending(ArrayList<Product> products) {
+        Collections.sort(products, (p1, p2) -> Float.compare(p1.getPrice(), p2.getPrice()));
+    }
+    public void sortProductsByPriceDescending(ArrayList<Product> products) {
+        Collections.sort(products, (p1, p2) -> Float.compare(p2.getPrice(), p1.getPrice()));
+    }
+
     private void setupBottomToolbar(Toolbar bottomToolbar) {
         ImageButton orderBtn = bottomToolbar.findViewById(R.id.orderBtn);
         ImageButton homeBtn = bottomToolbar.findViewById(R.id.homeBtn);
@@ -159,23 +183,26 @@ public class HomeActivity extends AppCompatActivity {
             ProductDao productDao = new ProductDao(this);
             productList = productDao.getAllProduct();
 
-            ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, this.getLayoutInflater());
-            productDisplay.setAdapter(adapter);
+            loadProductToGridView();
         }else if (gender.equals(Staticstuffs.MALE))
         {
             ProductDao productDao = new ProductDao(getApplicationContext());
             productList = productDao.getProductsByGender(Staticstuffs.MALE);
 
-            ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, this.getLayoutInflater());
-            productDisplay.setAdapter(adapter);
+            loadProductToGridView();
         } else if (gender.equals(Staticstuffs.FEMALE)) {
             ProductDao productDao = new ProductDao(getApplicationContext());
             productList = productDao.getProductsByGender(Staticstuffs.FEMALE);
 
-            ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, this.getLayoutInflater());
-            productDisplay.setAdapter(adapter);
+            loadProductToGridView();
         }
     }
+
+    private void loadProductToGridView() {
+        ProductGridViewAdapter adapter = new ProductGridViewAdapter(this, productList, this.getLayoutInflater());
+        productDisplay.setAdapter(adapter);
+    }
+
     private void loadProductFromDatabaseWithKW(String kw)
     {
         ProductDao productDao = new ProductDao(this);
@@ -183,8 +210,7 @@ public class HomeActivity extends AppCompatActivity {
         productList = productDao.getProductsKw(kw);
 
 
-        ProductGridViewAdapter adapter = new ProductGridViewAdapter(this,productList,this.getLayoutInflater());
-        productDisplay.setAdapter(adapter);
+        loadProductToGridView();
     }
 
     @Override

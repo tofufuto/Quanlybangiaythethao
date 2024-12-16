@@ -1,8 +1,9 @@
 package com.pack1.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserOrder {
+public class UserOrder implements Serializable {
 
     private int orderId;
     private int quantity;
@@ -11,6 +12,9 @@ public class UserOrder {
     private Date dateOrder;
     private int userId;
     private int productId;
+
+    private String productName;
+    private String imageUrl;
 
     public String getShipAdress() {
         return shipAdress;
@@ -92,5 +96,21 @@ public class UserOrder {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

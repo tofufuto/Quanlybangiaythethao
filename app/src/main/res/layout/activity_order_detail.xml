@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- ID đơn hàng -->
+    <TextView
+        android:id="@+id/tvOrderId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID Đơn Hàng: "
+        android:textSize="18sp" />
+
+    <!-- ID sản phẩm -->
+    <TextView
+        android:id="@+id/tvProductId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID Sản Phẩm: "
+        android:textSize="18sp" />
+
+    <!-- ID người dùng -->
+    <TextView
+        android:id="@+id/tvUserId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID Người Dùng: "
+        android:textSize="18sp" />
+
+    <!-- Địa chỉ giao hàng -->
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Địa chỉ: "
+        android:textSize="18sp" />
+
+    <!-- Ngày đặt hàng -->
+    <TextView
+        android:id="@+id/tvOrderDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngày đặt: "
+        android:textSize="18sp" />
+
+    <!-- Hình ảnh sản phẩm -->
+    <ImageView
+        android:id="@+id/ivProductImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pt1" />
+
+    <!-- Trạng thái đơn hàng -->
+    <RadioGroup
+        android:id="@+id/rgOrderStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rbPending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đang xử lý" />
+        <RadioButton
+            android:id="@+id/rbConfirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã xử lý" />
+        <RadioButton
+            android:id="@+id/rbDelivering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đang giao" />
+        <RadioButton
+            android:id="@+id/rbDelivered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã giao" />
+    </RadioGroup>
+
+    <!-- Xác nhận thay đổi trạng thái -->
+    <Button
+        android:id="@+id/btnUpdateStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cập nhật trạng thái"
+        android:textColor="@color/darkgray" />
+</LinearLayout>

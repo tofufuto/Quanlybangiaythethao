@@ -27,10 +27,10 @@ public class Staticstuffs {
     public static final String FEMALE = "Nữ";
     public static String DATE_FORMATTER = "dd-MM-yyyy";
     public static int defaultUserAvatar = R.drawable.user;
-    public static String ORDER_STATUS_PENDIND = "Đang xử lý";
-    public static String ORDER_STATUS_CONFIRMED = "Đã xử lý";
-    public static String ORDER_STATUS_DELIVERING = "Đang giao";
-    public static String ORDER_STATUS_DELIVERD = "Đã giao";
+    public static  String ORDER_STATUS_PENDIND = "Đang xử lý";
+    public static  String ORDER_STATUS_CONFIRMED = "Đã xử lý";
+    public static  String ORDER_STATUS_DELIVERING = "Đang giao";
+    public static  String ORDER_STATUS_DELIVERD = "Đã giao";
     public static String SP_ROLE = "ROLE";
     public static String SP_IS_SIGNIN = "isSignIn";
     public static String SP_CURRENT_USER_ID = "currentUserId";
@@ -99,5 +99,6 @@ public class Staticstuffs {
         }
         return  bitmaps;
     }
+
 
 }
