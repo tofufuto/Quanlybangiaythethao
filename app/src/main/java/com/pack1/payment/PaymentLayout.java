@@ -23,6 +23,7 @@ import com.pack1.models.Product;
 import com.pack1.models.User;
 import com.pack1.models.UserOrder;
 import com.pack1.quanlybangiaythethao.R;
+import com.pack1.quanlybangiaythethao.Staticstuffs;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -117,6 +118,15 @@ public class PaymentLayout extends AppCompatActivity {
                 Log.d("MyLog", "Intent: " + String.valueOf(intent1));
                 if (intent1 != null) {
                     // Nếu ứng dụng Momo tồn tại, mở ứng dụng Momo
+                    String sl= etQuantity.getText().toString();
+                    float tonggia = totalPrice;
+                    String status= Staticstuffs.ORDER_STATUS_PENDIND;
+                    int id= user.getUserId();
+                    int idprod = product.getProduct_id();
+                    String diachi= etAddress.getText().toString();
+                    UserOrder userOrder = new UserOrder(Integer.parseInt(sl),tonggia,status,idprod,id,diachi);
+
+                    userOrderDao.addUserOrder(userOrder);
                     startActivity(intent1);
                 } else {
                     // Nếu không có ứng dụng Momo, hiển thị thông báo
@@ -125,19 +135,17 @@ public class PaymentLayout extends AppCompatActivity {
 
             }
         });
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        String formattedDate = dateFormat.format(currentDate);
-        Log.d("Current Date", formattedDate);
-        String sl= etQuantity.getText().toString();
-        float tonggia = totalPrice;
-        String status=" Dang Xy Ly";
-        int id= user.getUserId();
-        int idprod = product.getProduct_id();
-        String diachi= etAddress.getText().toString();
-        UserOrder userOrder = new UserOrder(Integer.parseInt(sl),tonggia,status,idprod,id,diachi);
 
-        userOrderDao.addUserOrder(userOrder);
+
+//        String sl= etQuantity.getText().toString();
+//        float tonggia = totalPrice;
+//        String status= Staticstuffs.ORDER_STATUS_PENDIND;
+//        int id= user.getUserId();
+//        int idprod = product.getProduct_id();
+//        String diachi= etAddress.getText().toString();
+//        UserOrder userOrder = new UserOrder(Integer.parseInt(sl),tonggia,status,idprod,id,diachi);
+//
+//        userOrderDao.addUserOrder(userOrder);
     }
 }
 
