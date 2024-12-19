@@ -16,6 +16,12 @@
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
+            android:name="com.pack1.employee.EmployeeOrderDetail"
+            android:exported="false" />
+        <activity
+            android:name="com.pack1.employee.EmployeeOrderList"
+            android:exported="false" />
+        <activity
             android:name="com.pack1.customer.CustomerOrdersView"
             android:exported="false" />
         <activity

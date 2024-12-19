@@ -211,4 +211,25 @@ public class UserDao {
         return null;
     }
 
+    public Integer getUserIdByPhoneNumber(String numberPattern) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Integer userId = null;
+
+        // Query với toán tử LIKE
+        String query = "SELECT user_id FROM User WHERE numbers LIKE ?";
+        String[] whereArgs = new String[]{"%" + numberPattern + "%"};
+
+        Cursor cursor = db.rawQuery(query, whereArgs);
+
+        // Nếu tìm thấy kết quả, lấy user_id
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
+        }
+
+        cursor.close(); // Đóng Cursor
+        db.close();     // Đóng database
+
+        return userId; // Trả về userId (null nếu không tìm thấy)
+    }
+
 }

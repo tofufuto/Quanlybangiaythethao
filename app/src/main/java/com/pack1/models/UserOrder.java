@@ -39,6 +39,7 @@ public class UserOrder {
         this.productId = productId;
         this.dateOrder = new Date();
         this.shipAdress = shipAdress;
+        this.userId = userId;
     }
 
     public int getOrderId() {

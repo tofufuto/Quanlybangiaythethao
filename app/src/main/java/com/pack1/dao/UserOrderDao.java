@@ -150,5 +150,88 @@ public class UserOrderDao {
         db.close();     // Đóng cơ sở dữ liệu
         return orders;
     }
+    public ArrayList<UserOrder> getAllOrders() {
+        ArrayList<UserOrder> orders = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Truy vấn tất cả các cột từ bảng User_order
+        String query = "SELECT * FROM User_order";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                // Khởi tạo đối tượng UserOrder từ dữ liệu trong Cursor
+                UserOrder order = new UserOrder(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("quantity")),
+                        cursor.getFloat(cursor.getColumnIndexOrThrow("total_price")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("status")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("product_id")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("user_id")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("ship_address")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("order_id"))
+                );
+
+                // Thêm vào danh sách
+                orders.add(order);
+            } while (cursor.moveToNext());
+        }
+
+        // Đóng Cursor và Database
+        cursor.close();
+        db.close();
+
+        return orders;
+    }
+    public UserOrder getOrderById(int orderId) {
+        UserOrder userOrder = null; // Biến để lưu thông tin đơn hàng
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Câu truy vấn
+        String query = "SELECT * FROM User_order WHERE order_id = ?";
+        String[] selectionArgs = {String.valueOf(orderId)};
+
+        // Thực thi truy vấn
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+
+        // Kiểm tra kết quả
+        if (cursor.moveToFirst()) {
+            userOrder = new UserOrder(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("quantity")),
+                    cursor.getFloat(cursor.getColumnIndexOrThrow("total_price")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("status")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("product_id")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("user_id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("ship_address")),
+                    cursor.getInt(cursor.getColumnIndexOrThrow("order_id"))
+            );
+        }
+
+        // Đóng Cursor và cơ sở dữ liệu
+        cursor.close();
+        db.close();
+
+        return userOrder; // Trả về thông tin đơn hàng
+    }
+    public boolean updateOrderStatus(int orderId, String newStatus) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        // Đặt giá trị mới cho status
+        values.put("status", newStatus);
+
+        // Điều kiện cập nhật
+        String whereClause = "order_id = ?";
+        String[] whereArgs = {String.valueOf(orderId)};
+
+        // Cập nhật cơ sở dữ liệu
+        int rowsAffected = db.update("User_order", values, whereClause, whereArgs);
+
+        // Đóng kết nối
+        db.close();
+
+        // Kiểm tra kết quả
+        return rowsAffected > 0; // Trả về true nếu có ít nhất một dòng được cập nhật
+    }
 
 }

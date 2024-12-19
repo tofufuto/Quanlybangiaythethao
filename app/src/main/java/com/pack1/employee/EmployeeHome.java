@@ -66,7 +66,9 @@ public class EmployeeHome extends AppCompatActivity {
         checkOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(),EmployeeOrderList.class);
+                intent.putExtra("currentUserId",""+currentUserId);
+                startActivity(intent);
             }
         });
         logoutBtn.setOnClickListener(new View.OnClickListener() {
