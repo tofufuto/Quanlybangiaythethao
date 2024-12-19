@@ -5,20 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.EditText;
 import android.widget.ImageButton;
-
-
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
 import android.widget.Toast;
-
-
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,8 +29,7 @@ import com.pack1.models.ProducImage;
 import com.pack1.models.Product;
 import com.pack1.models.Review;
 import com.pack1.models.ShoppingCart;
-
-import com.pack1.models.UserOrder;
+import com.pack1.payment.PaymentLayout;
 import com.pack1.quanlybangiaythethao.R;
 
 import java.text.DecimalFormat;
@@ -47,18 +40,18 @@ import custom_adapter.ReviewDisplayAdapter;
 public class CustomerProductDetail extends AppCompatActivity {
 
 
-    int currentUserId,productId;
+    int currentUserId, productId;
 
 
     String productName;
-    TextView pdName,pdRating,pdGender,pdSize,pdColor,pdDescription,pdBrand,pdPrice;
+    TextView pdName, pdRating, pdGender, pdSize, pdColor, pdDescription, pdBrand, pdPrice;
     LinearLayout linearLayout;
     ListView reviewDisplay;
     ArrayList<ProducImage> producImages;
     Button buyBtn;
     Button submitReview;
     EditText edtReview;
-    RadioButton r1,r2,r3,r4,r5;
+    RadioButton r1, r2, r3, r4, r5;
 
     ImageButton addToCartBtn;
 
@@ -100,12 +93,11 @@ public class CustomerProductDetail extends AppCompatActivity {
         productName = ProductDetailIntent.getStringExtra("productName");
 
 
-        ProductDao productDao = new ProductDao(this );
+        ProductDao productDao = new ProductDao(this);
         productId = productDao.getProductIdByName(productName);
 
 
-
-        Log.d("MY LOG",productName);
+        Log.d("MY LOG", productName);
 
         linearLayout = findViewById(R.id.pILinearLayout);
 
@@ -118,30 +110,28 @@ public class CustomerProductDetail extends AppCompatActivity {
         buyBtn.setOnClickListener(new View.OnClickListener() {// nút mua cái là cái này thế acti m làm vào activity_mua_và_thanh_toán
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(),activity_mua_và_thanh_toán);
-//                intent.putExtra("currentUserId",""+currentUserId);
-//                intent.putExtra("productName",productName.toString());
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), PaymentLayout.class);
+                intent.putExtra("currentUserId", "" + currentUserId);
+                intent.putExtra("productName", productName.toString());
+                startActivity(intent);
             }
         });
-
 
 
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShoppingCart shoppingCart = new ShoppingCart(currentUserId,productId);
+                ShoppingCart shoppingCart = new ShoppingCart(currentUserId, productId);
                 ShoppingCartDao shoppingCartDao = new ShoppingCartDao(getApplicationContext());
-                if (shoppingCartDao.isShoppingCartExist(shoppingCart))
-                    {
-                        Toast.makeText(getApplicationContext(),"Đã mark sản phẩm này rồi",Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                if (shoppingCartDao.isShoppingCartExist(shoppingCart)) {
+                    Toast.makeText(getApplicationContext(), "Đã mark sản phẩm này rồi", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 long rs = shoppingCartDao.addShoppingCart(shoppingCart);
-                if(rs != -1)
-                    Toast.makeText(getApplicationContext(),"Đã thêm "+productName+" vào giỏ",Toast.LENGTH_SHORT).show();
+                if (rs != -1)
+                    Toast.makeText(getApplicationContext(), "Đã thêm " + productName + " vào giỏ", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(getApplicationContext(),"Lỗi thêm thất bại",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Lỗi thêm thất bại", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -155,35 +145,32 @@ public class CustomerProductDetail extends AppCompatActivity {
         });
     }
 
-    private void submitReview()
-    {
-        float rating=0;
-        if(r1.isChecked())
+    private void submitReview() {
+        float rating = 0;
+        if (r1.isChecked())
             rating = 1;
-        if(r2.isChecked())
+        if (r2.isChecked())
             rating = 2;
-        if(r3.isChecked())
+        if (r3.isChecked())
             rating = 3;
-        if(r4.isChecked())
+        if (r4.isChecked())
             rating = 4;
-        if(r5.isChecked())
+        if (r5.isChecked())
             rating = 5;
-        Review review = new Review(edtReview.getText().toString(),rating,productId,currentUserId);
+        Review review = new Review(edtReview.getText().toString(), rating, productId, currentUserId);
         ReviewDao reviewDao = new ReviewDao(this);
         reviewDao.addReview(review);
         ProductDao productDao = new ProductDao(this);
-        productDao.updateProductRating(productId,ratingCalculator(reviewDao.getAllReviewByProuctId(productId)));
+        productDao.updateProductRating(productId, ratingCalculator(reviewDao.getAllReviewByProuctId(productId)));
     }
 
-    private void checkIfCanReview()
-    {
+    private void checkIfCanReview() {
         ReviewDao reviewDao = new ReviewDao(this);
         UserOrderDao userOrder = new UserOrderDao(this);
-        if(!reviewDao.hasRated(currentUserId,productId) && userOrder.isOrderExist(currentUserId,productId))//chưa rate và đã mua
+        if (!reviewDao.hasRated(currentUserId, productId) && userOrder.isOrderExist(currentUserId, productId))//chưa rate và đã mua
         {
             // ko làm j
-        }
-        else{
+        } else {
             edtReview.setEnabled(false);
             submitReview.setEnabled(false);
             r1.setEnabled(false);
@@ -198,7 +185,7 @@ public class CustomerProductDetail extends AppCompatActivity {
         ProductDao productDao = new ProductDao(this);
         ProductImageDao productImageDao = new ProductImageDao(this);
         producImages = productImageDao.getAllProductImagesFromID(productDao.getProductIdByName(productName));
-        for(int i =0;i < producImages.size();i++) {
+        for (int i = 0; i < producImages.size(); i++) {
 
             ImageView imageView = new ImageView(this);
 
@@ -215,19 +202,18 @@ public class CustomerProductDetail extends AppCompatActivity {
 
         }
     }
-    private float ratingCalculator(ArrayList<Review> reviews){
-        if(reviews == null|| reviews.isEmpty())
+
+    private float ratingCalculator(ArrayList<Review> reviews) {
+        if (reviews == null || reviews.isEmpty())
             return 0f;
         float rs = 0f;
-        for(int i = 0;i< reviews.size();i++)
-        {
+        for (int i = 0; i < reviews.size(); i++) {
             rs += reviews.get(i).getRating();
         }
-        return (rs/reviews.size());
+        return (rs / reviews.size());
     }
 
-    private void loadProduct()
-    {
+    private void loadProduct() {
         try {
             ReviewDao reviewDao = new ReviewDao(this);
             ProductDao productDao = new ProductDao(this);
@@ -237,26 +223,25 @@ public class CustomerProductDetail extends AppCompatActivity {
 
             DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
-            pdRating.setText(""+decimalFormat.format( product.getRating()));
+            pdRating.setText("" + decimalFormat.format(product.getRating()));
             pdGender.setText(product.getGender());
             pdSize.setText(product.getSize());
             pdColor.setText(product.getColor());
             pdDescription.setText(product.getDescription());
             pdBrand.setText(product.getBrand());
-            pdPrice.setText( String.format("%,d", (int) product.getPrice()) +" VNĐ");
-        }
-        catch (Exception e)
-        {
+            pdPrice.setText(String.format("%,d", (int) product.getPrice()) + " VNĐ");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    private void loadReviews(){
-        try{
+
+    private void loadReviews() {
+        try {
             ReviewDao reviewDao = new ReviewDao(this);
             ProductDao productDao = new ProductDao(this);
-            ReviewDisplayAdapter reviewDisplayAdapter = new ReviewDisplayAdapter(this,reviewDao.getAllReviewByProuctId(productDao.getProductIdByName(productName)),this.getLayoutInflater());
+            ReviewDisplayAdapter reviewDisplayAdapter = new ReviewDisplayAdapter(this, reviewDao.getAllReviewByProuctId(productDao.getProductIdByName(productName)), this.getLayoutInflater());
             reviewDisplay.setAdapter(reviewDisplayAdapter);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
