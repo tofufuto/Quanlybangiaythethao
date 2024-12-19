@@ -37,6 +37,7 @@ import com.pack1.models.Review;
 import com.pack1.models.ShoppingCart;
 
 import com.pack1.models.UserOrder;
+import com.pack1.payment.PaymentLayout;
 import com.pack1.quanlybangiaythethao.R;
 
 import java.text.DecimalFormat;
@@ -118,10 +119,10 @@ public class CustomerProductDetail extends AppCompatActivity {
         buyBtn.setOnClickListener(new View.OnClickListener() {// nút mua cái là cái này thế acti m làm vào activity_mua_và_thanh_toán
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(),activity_mua_và_thanh_toán);
-//                intent.putExtra("currentUserId",""+currentUserId);
-//                intent.putExtra("productName",productName.toString());
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), PaymentLayout.class);
+                intent.putExtra("currentUserId",""+currentUserId);
+                intent.putExtra("productName",productName.toString());
+                startActivity(intent);
             }
         });
 

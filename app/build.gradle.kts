@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.legacy.support.v4)
+
     implementation(fileTree(mapOf(
         "dir" to "D:\\AndroidStudioProjects\\ZaloPay",
         "include" to listOf("*.aar", "*.jar"),
@@ -49,8 +50,8 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    //momo
-    implementation("com.github.momo-wallet:mobile-sdk:1.0.7")
+    implementation("com.squareup.okhttp3:okhttp:4.6.0")
+    implementation("commons-codec:commons-codec:1.14")
 
 }
 
