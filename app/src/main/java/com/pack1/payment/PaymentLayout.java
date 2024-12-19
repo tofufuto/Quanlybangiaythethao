@@ -18,9 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.pack1.dao.ProductDao;
 import com.pack1.dao.UserDao;
+import com.pack1.dao.UserOrderDao;
 import com.pack1.models.Product;
 import com.pack1.models.User;
+import com.pack1.models.UserOrder;
 import com.pack1.quanlybangiaythethao.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class PaymentLayout extends AppCompatActivity {
@@ -54,12 +60,12 @@ public class PaymentLayout extends AppCompatActivity {
 
 
         ProductDao productDao = new ProductDao(this );
+        UserOrderDao userOrderDao = new UserOrderDao(this);
         Product product = productDao.getProductName(productName);
         productId = productDao.getProductIdByName(productName);
 
         User user = userDao.getUserById(Integer.parseInt(intent.getStringExtra("currentUserId")));
         tvInfo.setText("Hello: "+user.getFname()+" "+user.getLname());
-
 
         tvNameProduct.setText(productName);
         imgProduct.setImageBitmap(product.getPdImage());
@@ -119,6 +125,19 @@ public class PaymentLayout extends AppCompatActivity {
 
             }
         });
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+        Log.d("Current Date", formattedDate);
+        String sl= etQuantity.getText().toString();
+        float tonggia = totalPrice;
+        String status=" Dang Xy Ly";
+        int id= user.getUserId();
+        int idprod = product.getProduct_id();
+        String diachi= etAddress.getText().toString();
+        UserOrder userOrder = new UserOrder(Integer.parseInt(sl),tonggia,status,idprod,id,diachi);
+
+        userOrderDao.addUserOrder(userOrder);
     }
 }
 
